@@ -1,3 +1,4 @@
+import tailwindURL from './styles/tailwind.css'
 const {
   Links,
   LiveReload,
@@ -5,17 +6,21 @@ const {
   Outlet,
   Scripts,
   ScrollRestoration,
-} = require("@remix-run/react");
+} = require('@remix-run/react')
 
 export const meta = () => ({
-  charset: "utf-8",
-  title: "New Remix App",
-  viewport: "width=device-width,initial-scale=1",
-});
+  charset: 'utf-8',
+  title: 'New Remix App',
+  viewport: 'width=device-width,initial-scale=1',
+})
+
+export const links = () => {
+  return [{ rel: 'stylesheet', href: tailwindURL }]
+}
 
 export default function App() {
   return (
-    <html lang="en">
+    <html lang='en'>
       <head>
         <Meta />
         <Links />
@@ -27,5 +32,5 @@ export default function App() {
         <LiveReload />
       </body>
     </html>
-  );
+  )
 }

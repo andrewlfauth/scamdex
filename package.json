@@ -2,6 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
+    "watch:css": "tailwind -i app/styles/input.css -o app/styles/tailwind.css --watch",
     "build": "remix build",
     "dev": "remix dev",
     "start": "remix-serve build"
@@ -16,7 +17,8 @@
   "devDependencies": {
     "@remix-run/dev": "^1.7.2",
     "@remix-run/eslint-config": "^1.7.2",
-    "eslint": "^8.23.1"
+    "eslint": "^8.23.1",
+    "tailwindcss": "^3.1.8"
   },
   "engines": {
     "node": ">=14"
