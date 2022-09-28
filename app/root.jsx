@@ -22,10 +22,20 @@ export default function App() {
   return (
     <html lang='en'>
       <head>
+        <link rel='preconnect' href='https://fonts.googleapis.com' />
+        <link
+          rel='preconnect'
+          href='https://fonts.gstatic.com'
+          crossOrigin='true'
+        />
+        <link
+          href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&display=swap'
+          rel='stylesheet'
+        />
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className='font-lato'>
         <Outlet />
         <ScrollRestoration />
         <Scripts />
