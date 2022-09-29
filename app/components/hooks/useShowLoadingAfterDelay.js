@@ -10,5 +10,5 @@ export default function useShowLoadingAfterDelay(msg = 'loading') {
       let id = setTimeout(() => toast.loading(msg), 300)
       return () => clearTimeout(id)
     }
-  }, [transition])
+  }, [transition, msg])
 }
