@@ -1,4 +1,4 @@
-import { Form, Link } from '@remix-run/react'
+import { Form } from '@remix-run/react'
 import { useState } from 'react'
 
 function RegisterForm() {
@@ -9,6 +9,11 @@ function RegisterForm() {
       method='post'
       className='w-full md:w-[600px] p-10 border flex flex-col items-center'
     >
+      <input
+        type='hidden'
+        name='action'
+        value={action === 'login' ? 'login' : 'register'}
+      />
       <h1 className='text-3xl font-semibold mb-4 text-emerald-300 self-start'>
         {action === 'login' ? 'Sign In' : 'Sign Up'}
       </h1>
@@ -30,7 +35,7 @@ function RegisterForm() {
         <input
           required
           type='password'
-          name='username'
+          name='password'
           className='rounded border-2 p-2 outline-purple-600'
         />
       </div>
