@@ -1,4 +1,5 @@
 import tailwindURL from './styles/tailwind.css'
+import { Toaster } from 'react-hot-toast'
 const {
   Links,
   LiveReload,
@@ -29,13 +30,14 @@ export default function App() {
           crossOrigin='true'
         />
         <link
-          href='https://fonts.googleapis.com/css2?family=Lato:wght@300;400;500;600;700&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap'
           rel='stylesheet'
         />
         <Meta />
         <Links />
       </head>
       <body className='font-lato'>
+        <Toaster />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

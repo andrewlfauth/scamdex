@@ -1,8 +1,16 @@
 import { Form } from '@remix-run/react'
 import { useState } from 'react'
 
+import useShowLoadingAfterDelay from './hooks/useShowLoadingAfterDelay'
+
 function RegisterForm() {
   const [action, setAction] = useState('login')
+
+  useShowLoadingAfterDelay(
+    action === 'login'
+      ? 'Connecting to secure server'
+      : 'Handling each and everything'
+  )
 
   return (
     <Form
@@ -14,34 +22,34 @@ function RegisterForm() {
         name='action'
         value={action === 'login' ? 'login' : 'register'}
       />
-      <h1 className='text-3xl font-semibold mb-4 text-emerald-300 self-start'>
+      <h1 className='self-start mb-4 text-3xl font-semibold text-emerald-300'>
         {action === 'login' ? 'Sign In' : 'Sign Up'}
       </h1>
       <div className='flex flex-col w-full'>
-        <label htmlFor='username' className='text-purple-600 font-semibold'>
+        <label htmlFor='username' className='font-semibold text-purple-600'>
           Username
         </label>
         <input
           type='text'
           required
           name='username'
-          className='rounded border-2 p-2 outline-purple-600'
+          className='p-2 border-2 rounded outline-purple-600'
         />
       </div>
       <div className='flex flex-col w-full mt-4'>
-        <label htmlFor='username' className='text-purple-600 font-semibold'>
+        <label htmlFor='username' className='font-semibold text-purple-600'>
           Password
         </label>
         <input
           required
           type='password'
           name='password'
-          className='rounded border-2 p-2 outline-purple-600'
+          className='p-2 border-2 rounded outline-purple-600'
         />
       </div>
       <button
         type='submit'
-        className='bg-emerald-300 font-semibold text-lg text-neutral-800 rounded mt-6 mb-4 py-2 w-44'
+        className='py-2 mt-6 mb-4 text-lg font-semibold rounded bg-emerald-300 text-neutral-800 w-44'
       >
         {action === 'login' ? 'Sign In' : 'Sign Up'}
       </button>
@@ -51,7 +59,7 @@ function RegisterForm() {
           <span>
             New here?{' '}
             <span
-              className='cursor-pointer font-semibold text-blue-500'
+              className='font-semibold text-blue-500 cursor-pointer'
               onClick={() => setAction('signup')}
             >
               Sign Up
@@ -63,7 +71,7 @@ function RegisterForm() {
           <span>
             Already have an account?{' '}
             <span
-              className='cursor-pointer font-semibold text-blue-500'
+              className='font-semibold text-blue-500 cursor-pointer'
               onClick={() => setAction('login')}
             >
               Sign In
