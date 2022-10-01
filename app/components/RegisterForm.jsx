@@ -1,57 +1,85 @@
-import { Form } from '@remix-run/react'
-import { useState } from 'react'
-
-import useShowLoadingAfterDelay from './hooks/useShowLoadingAfterDelay'
+import { Form, useTransition } from '@remix-run/react'
+import { useState, useRef } from 'react'
+import { toast } from 'react-toastify'
 
 function RegisterForm() {
+  const transition = useTransition()
   const [action, setAction] = useState('login')
+  const formRef = useRef()
 
-  useShowLoadingAfterDelay(
-    action === 'login'
-      ? 'Connecting to secure server'
-      : 'Handling each and everything'
-  )
+  const handleSubmit = (e) => {
+    const inputs = [...formRef.current.elements]
+    const p1 = inputs[2]
+    const p2 = inputs[3]
+
+    if (p1.value !== p2.value) {
+      e.preventDefault()
+      toast.error("Passwords don't match")
+    }
+  }
 
   return (
     <Form
+      ref={formRef}
+      onSubmit={action === 'signup' ? handleSubmit : ''}
       method='post'
-      className='w-full md:w-[600px] p-10 border flex flex-col items-center'
+      className='w-full md:w-[500px] p-10 border flex flex-col items-center'
     >
+      {/* {invalidPw && (
+        <Toast title='Woops!' subtitle="Passwords don't match" type='error' />
+      )} */}
       <input
         type='hidden'
         name='action'
         value={action === 'login' ? 'login' : 'register'}
       />
-      <h1 className='self-start mb-4 text-3xl font-semibold text-emerald-300'>
+      <h1 className='self-start mb-4 text-3xl font-semibold'>
         {action === 'login' ? 'Sign In' : 'Sign Up'}
       </h1>
       <div className='flex flex-col w-full'>
-        <label htmlFor='username' className='font-semibold text-purple-600'>
+        <label htmlFor='username' className='font-semibold text-blue-500'>
           Username
         </label>
         <input
           type='text'
           required
           name='username'
-          className='p-2 border-2 rounded outline-purple-600'
+          className='p-2 border-2 rounded outline-blue-500'
         />
       </div>
       <div className='flex flex-col w-full mt-4'>
-        <label htmlFor='username' className='font-semibold text-purple-600'>
+        <label htmlFor='username' className='font-semibold text-blue-500'>
           Password
         </label>
         <input
           required
           type='password'
           name='password'
-          className='p-2 border-2 rounded outline-purple-600'
+          className='p-2 border-2 rounded outline-blue-500'
         />
       </div>
+      {action === 'signup' && (
+        <div className='flex flex-col w-full mt-4'>
+          <label htmlFor='confirm' className='font-semibold text-blue-500'>
+            Confirm password
+          </label>
+          <input
+            required
+            type='password'
+            name='confirm'
+            className='p-2 border-2 rounded outline-blue-500'
+          />
+        </div>
+      )}
       <button
         type='submit'
-        className='py-2 mt-6 mb-4 text-lg font-semibold rounded bg-emerald-300 text-neutral-800 w-44'
+        className='py-2 mt-6 mb-4 text-lg font-semibold rounded bg-fuchsia-500 text-white w-44'
       >
-        {action === 'login' ? 'Sign In' : 'Sign Up'}
+        {transition.state === 'idle'
+          ? action === 'login'
+            ? 'Sign In'
+            : 'Sign Up'
+          : 'Loading...'}
       </button>
 
       {action === 'login' ? (
