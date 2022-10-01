@@ -11,7 +11,7 @@ module.exports = {
         },
       },
       animation: {
-        toast: 'toast 6s ',
+        toast: 'toast 5s ease-in',
       },
       fontFamily: {
         lato: ['"Inter"', 'sans-serif'],

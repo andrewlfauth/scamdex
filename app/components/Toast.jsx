@@ -18,7 +18,7 @@ function Toast({ title, msg, type }) {
   })
 
   useEffect(() => {
-    let t1 = setTimeout(() => setDismiss(true), 5500)
+    let t1 = setTimeout(() => setDismiss(true), 5000)
     return () => clearTimeout(t1)
   }, [])
 
