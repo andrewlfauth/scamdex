@@ -4,8 +4,17 @@ module.exports = {
   content: ['app/*/**/*.{jsx, jsx, tsx, ts}', 'app/root.{jsx, jsx, tsx, ts}'],
   theme: {
     extend: {
+      keyframes: {
+        toast: {
+          '0%': { transform: 'scaleX(1)' },
+          '100%': { transform: 'scaleX(0)' },
+        },
+      },
+      animation: {
+        toast: 'toast 6s ',
+      },
       fontFamily: {
-        lato: ['"Lato"', 'sans-serif'],
+        lato: ['"Inter"', 'sans-serif'],
       },
     },
   },
