@@ -6,9 +6,10 @@ export default function useShowLoadingAfterDelay(msg = 'loading') {
   const transition = useTransition()
 
   useEffect(() => {
-    if (transition.state === 'submitting') {
+    if (transition.state !== 'idle') {
       let id = setTimeout(() => toast.loading(msg), 300)
       return () => clearTimeout(id)
     }
+    toast.dismiss()
   }, [transition, msg])
 }
