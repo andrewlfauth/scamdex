@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import clsx from 'clsx'
 
-function Toast({ title, subtitle, type }) {
+function Toast({ title, msg, type }) {
   const [dismiss, setDismiss] = useState(false)
 
   let TITLE_STYLE = clsx({
@@ -31,7 +31,7 @@ function Toast({ title, subtitle, type }) {
       <span className={`${TITLE_STYLE} text-lg font-bold tracking-tight`}>
         {title}
       </span>
-      <p className='pb-4 text-gray-500'>{subtitle}</p>
+      <p className='pb-4 text-gray-500'>{msg}</p>
       <span
         className={`${TIMER_STYLE} block w-full h-1 animate-toast origin-left`}
       ></span>
