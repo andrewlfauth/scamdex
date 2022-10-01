@@ -1,22 +1,23 @@
-import { useActionData } from '@remix-run/react'
-
+import { useActionData, useTransition } from '@remix-run/react'
 import { createUser, loginUser } from '~/utils/users.server'
-import { getSession, commitSession } from '../sessions'
-import prisma from '../utils/prisma.server'
-import RegisterForm from '~/components/RegisterForm'
+import { getSession } from '../sessions'
 import { redirect } from '@remix-run/node'
+import { useEffect } from 'react'
+import { toast } from 'react-toastify'
+
+import RegisterForm from '~/components/RegisterForm'
 
 export async function action({ request }) {
-  // const formData = await request.formData()
-  // const { action, ...values } = Object.fromEntries(formData)
+  const formData = await request.formData()
+  const { action, ...values } = Object.fromEntries(formData)
 
-  // if (action === 'register') {
-  //   return createUser(values, request)
-  // }
+  if (action === 'register') {
+    return createUser(values, request)
+  }
 
-  // if (action === 'login') {
-  //   return loginUser(values)
-  // }
+  if (action === 'login') {
+    return loginUser(values, request)
+  }
 
   return null
 }
@@ -33,11 +34,23 @@ export async function loader({ request }) {
 
 export default function Index() {
   const action = useActionData()
+  const transition = useTransition()
+
+  useEffect(() => {
+    if (action?.error) {
+      toast.error(action.error)
+    }
+  }, [action])
+
+  useEffect(() => {
+    if (transition?.location?.pathname === '/call-center') {
+      toast.dismiss()
+    }
+  }, [transition])
 
   return (
     <main className='flex flex-col items-center h-screen px-4 sm:px-6 lg:px-8 py-32'>
       <RegisterForm />
-      {action?.error && action.error}
     </main>
   )
 }
