@@ -23,7 +23,7 @@ function Toast({ title, subtitle, type }) {
   }, [])
 
   return dismiss ? null : (
-    <div className='w-[300px] absolute shadow border bg-white px-10 py-4 rounded bottom-10 right-10'>
+    <div className='w-[300px] absolute shadow border bg-white px-10 py-4 rounded right-0 left-0 mx-auto top-10'>
       <AiOutlineClose
         className='absolute cursor-pointer top-2 right-2'
         onClick={() => setDismiss(true)}
