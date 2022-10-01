@@ -1,26 +1,21 @@
-import { redirect } from '@remix-run/node'
-import RegisterForm from '~/components/RegisterForm'
-import { createUser } from '~/utils/users.server'
+import { Link } from '@remix-run/react'
 
-import useToastErrorFromAction from '~/components/hooks/useToastErrorFromAction'
-
-export async function action({ request }) {
-  const formData = await request.formData()
-  const { action, ...values } = Object.fromEntries(formData)
-
-  if (action === 'register') {
-    const data = await createUser(values)
-
-    return data.error ? data.error : redirect('/call-center')
-  }
-}
-
-export default function Index() {
-  useToastErrorFromAction()
-
+function index() {
   return (
-    <main className='flex items-center justify-center h-screen px-4 sm:px-6 lg:px-8'>
-      <RegisterForm />
-    </main>
+    <div className='px-4 sm:px-6 lg:px-8 mx-auto max-w-7xl py-20'>
+      <div className='max-w-xl'>
+        <h1 className='text-6xl font-semibold tracking-tight'>
+          Keep track of your ongoing scambaits
+        </h1>
+        <Link
+          to='/auth'
+          className='bg-fuchsia-500 text-gray-100 text-xl rounded font-semibold py-3 w-44 text-center block mt-10'
+        >
+          Get started
+        </Link>
+      </div>
+    </div>
   )
 }
+
+export default index
