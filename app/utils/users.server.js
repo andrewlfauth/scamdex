@@ -4,46 +4,59 @@ import { json, redirect } from '@remix-run/node' // or cloudflare/deno
 import { prisma } from './prisma.server'
 import { getSession, commitSession } from '../sessions'
 
-// export async function createUser(values, request) {
-//   const session = await getSession(request.headers.get('Cookie'))
-//   if (session.has('userId')) {
-//     return redirect('/call-center')
-//   }
+export async function createUser(values, request) {
+  const session = await getSession(request.headers.get('Cookie'))
 
-//   const exists = await prisma.User.count({
-//     where: { username: values.username },
-//   })
+  const exists = await prisma.User.count({
+    where: { username: values.username },
+  })
 
-//   if (exists) {
-//     return { error: 'That username is taken' }
-//   }
+  if (exists) {
+    return { error: 'That username is taken' }
+  }
 
-//   const hash = await bcrypt.hash(values.password, 10)
+  const hash = await bcrypt.hash(values.password, 10)
 
-//   const user = await prisma.User.create({
-//     data: {
-//       username: values.username,
-//       password: hash,
-//     },
-//   })
+  const user = await prisma.User.create({
+    data: {
+      username: values.username,
+      password: hash,
+    },
+  })
 
-//   session.set('userId', user.id)
+  session.set('userId', user.id)
 
-//   return redirect('/call-center', {
-//     headers: {
-//       'Set-Cookie': await commitSession(session),
-//     },
-//   })
-// }
+  return redirect('/call-center', {
+    headers: {
+      'Set-Cookie': await commitSession(session),
+    },
+  })
+}
 
-// export async function loginUser(values) {
-//   const user = await prisma.User.findUnique({
-//     where: {
-//       username: values.username,
-//     },
-//   })
+export async function loginUser(values, request) {
+  const session = await getSession(request.headers.get('Cookie'))
 
-//   return null
-// }
+  const user = await prisma.User.findFirst({
+    where: {
+      username: values.username,
+    },
+  })
 
-// export async function getUser() {}
+  if (!user) {
+    return { error: 'Incorrect username or password' }
+  }
+
+  const passwordMatch = await bcrypt.compare(values.password, user.password)
+
+  if (!passwordMatch) {
+    return { error: 'Incorrect username or password' }
+  }
+
+  session.set('userId', user.id)
+
+  return redirect('/call-center', {
+    headers: {
+      'Set-Cookie': await commitSession(session),
+    },
+  })
+}
