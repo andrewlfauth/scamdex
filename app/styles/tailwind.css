@@ -661,8 +661,8 @@ video {
 }
 
 .animate-toast {
-  -webkit-animation: toast 6s;
-          animation: toast 6s;
+  -webkit-animation: toast 5s ease-in;
+          animation: toast 5s ease-in;
 }
 
 .cursor-pointer {
