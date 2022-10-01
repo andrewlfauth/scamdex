@@ -1,5 +1,8 @@
+import { ToastContainer } from 'react-toastify'
+import toastStyles from 'react-toastify/dist/ReactToastify.css'
+
 import tailwindURL from './styles/tailwind.css'
-import { Toaster } from 'react-hot-toast'
+import Navbar from './components/Navbar'
 const {
   Links,
   LiveReload,
@@ -16,7 +19,10 @@ export const meta = () => ({
 })
 
 export const links = () => {
-  return [{ rel: 'stylesheet', href: tailwindURL }]
+  return [
+    { rel: 'stylesheet', href: tailwindURL },
+    { rel: 'stylesheet', href: toastStyles },
+  ]
 }
 
 export default function App() {
@@ -37,7 +43,8 @@ export default function App() {
         <Links />
       </head>
       <body className='font-lato'>
-        <Toaster />
+        <ToastContainer position='top-center' />
+        <Navbar />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
