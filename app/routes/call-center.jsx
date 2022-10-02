@@ -19,7 +19,9 @@ function Index() {
         <ControlPanel />
         <div className='px-10'>
           <CallCenterTitle />
-          <Outlet />
+          <div className='mt-4'>
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>

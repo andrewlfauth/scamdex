@@ -17,7 +17,7 @@ function AgeInput() {
         onChange={(e) => setAge(e.target.value)}
         value={age}
         type='text'
-        name='character-age'
+        name='age'
         className='bg-transparent border-b border-type-secondary px-2 pb-1 w-full outline-none focus:border-accent-purple focus:border-b-2 caret-accent-purple text-type-white pr-6'
       />
       <div className='flex flex-col space-y-[1px] absolute top-3 right-0'>
