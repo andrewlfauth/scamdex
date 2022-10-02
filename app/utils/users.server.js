@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs'
-import { json, redirect } from '@remix-run/node' // or cloudflare/deno
+import { redirect } from '@remix-run/node' // or cloudflare/deno
 
 import { prisma } from './prisma.server'
 import { getSession, commitSession } from '../sessions'
@@ -59,4 +59,22 @@ export async function loginUser(values, request) {
       'Set-Cookie': await commitSession(session),
     },
   })
+}
+
+export async function getUser(request) {
+  const session = await getSession(request.headers.get('Cookie'))
+
+  if (!session.has('userId')) {
+    return redirect('/')
+  }
+
+  const userId = session.get('userId')
+
+  const user = await prisma.User.findUnique({
+    where: {
+      id: userId,
+    },
+  })
+
+  return user
 }
