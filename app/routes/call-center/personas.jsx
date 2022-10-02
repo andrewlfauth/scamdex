@@ -1,4 +1,5 @@
 import PersonaMaker from '../../components/personas/PersonaMaker/index'
+import PersonaSlider from '../../components/personas/PersonaSlider/index'
 
 function Index() {
   return (
@@ -8,8 +9,9 @@ function Index() {
         Manage you scambait personas.
       </p>
 
-      <div className='mt-4'>
+      <div className='grid grid-cols-2 gap-4 mt-4'>
         <PersonaMaker />
+        <PersonaSlider />
       </div>
     </div>
   )
