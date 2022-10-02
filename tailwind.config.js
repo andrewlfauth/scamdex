@@ -4,6 +4,19 @@ module.exports = {
   content: ['app/*/**/*.{jsx, jsx, tsx, ts}', 'app/root.{jsx, jsx, tsx, ts}'],
   theme: {
     extend: {
+      colors: {
+        primary: '#171617',
+        secondary: '#1e1d1e',
+        'accent-blue': '#488fff',
+        'accent-purple': '#8165fb',
+        'accent-gray': '#484748',
+        'accent-red': '#ff6647',
+        type: {
+          white: '#f4f3f4',
+          primary: '#c9c8c9',
+          secondary: '#6a696a',
+        },
+      },
       keyframes: {
         toast: {
           '0%': { transform: 'scaleX(1)' },

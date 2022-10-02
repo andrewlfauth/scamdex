@@ -4,7 +4,7 @@ function Navbar() {
   const path = useLocation().pathname
 
   return (
-    <div className='py-2 bg-blue-800'>
+    <div className='py-2 bg-transparent'>
       <nav className='flex items-center justify-between px-4 mx-auto max-w-7xl sm:px-6 lg:px-8'>
         <Link to='/'>LOGO</Link>
 
