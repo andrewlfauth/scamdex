@@ -8,8 +8,8 @@ function AgeInput() {
   useEffect(() => {}, [])
 
   return (
-    <div className='flex flex-col relative'>
-      <label htmlFor='character-age' className='text-type-secondary text-sm'>
+    <div className='relative flex flex-col'>
+      <label htmlFor='character-age' className='text-sm text-type-secondary'>
         Age
       </label>
       <input
@@ -18,14 +18,14 @@ function AgeInput() {
         value={age}
         type='text'
         name='age'
-        className='bg-transparent border-b border-type-secondary px-2 pb-1 w-full outline-none focus:border-accent-purple focus:border-b-2 caret-accent-purple text-type-white pr-6'
+        className='w-full px-2 pb-1 pr-6 bg-transparent border-b outline-none border-type-secondary focus:border-accent-purple focus:border-b-2 caret-accent-purple text-type-white'
       />
       <div className='flex flex-col space-y-[1px] absolute top-3 right-0'>
         <button type='button' onClick={() => setAge(Number(age) + 1)}>
-          <AiOutlineCaretUp className='text-type-secondary cursor-pointer hover:text-accent-purple text-sm' />
+          <AiOutlineCaretUp className='text-sm cursor-pointer text-type-secondary hover:text-accent-purple' />
         </button>
         <button type='button' onClick={() => setAge(Number(age) - 1)}>
-          <AiOutlineCaretDown className='text-type-secondary cursor-pointer hover:text-accent-purple text-sm' />
+          <AiOutlineCaretDown className='text-sm cursor-pointer text-type-secondary hover:text-accent-purple' />
         </button>
       </div>
     </div>
