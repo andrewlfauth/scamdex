@@ -39,7 +39,7 @@ function CallCenterTitle() {
 
   return title ? (
     <>
-      <h1 className='text-2xl font-semibold text-type-white relative group cursor-pointer flex pr-4 pt-2 -mt-2'>
+      <h1 className='relative flex pt-2 pr-4 -mt-2 text-2xl font-semibold cursor-pointer text-type-white group w-fit'>
         {title}
         <VscEdit
           className={`${
@@ -48,19 +48,19 @@ function CallCenterTitle() {
           onClick={() => setShowForm(!showForm)}
         />
       </h1>
-      <p className='text-sm text-type-secondary mt-1'>
+      <p className='mt-1 text-sm text-type-secondary'>
         Welcome to your call center.
       </p>
 
       {showForm && (
-        <div className='bg-secondary mt-2 absolute px-4 py-3 rounded'>
+        <div className='absolute px-4 py-3 mt-2 rounded bg-secondary'>
           <input
             ref={inputRef}
             type='text'
-            className='border-2 border-type-secondary rounded bg-transparent px-2 py-1 text-type-white outline-accent-blue ring-0'
+            className='px-2 py-1 bg-transparent border-2 rounded border-type-secondary text-type-white outline-accent-blue ring-0'
           />
           <button
-            className='text-type-white ml-4 hover:text-accent-blue'
+            className='ml-4 text-type-white hover:text-accent-blue'
             onClick={saveName}
           >
             Save
