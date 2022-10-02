@@ -42,9 +42,9 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className='font-lato'>
+      <body className='font-lato bg-primary'>
         <ToastContainer position='top-center' />
-        <Navbar />
+        {/* <Navbar /> */}
         <Outlet />
         <ScrollRestoration />
         <Scripts />
