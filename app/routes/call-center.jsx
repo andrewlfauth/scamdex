@@ -1,31 +1,29 @@
 import { redirect } from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, Outlet } from '@remix-run/react'
 
-import { getSession, commitSession } from '../sessions'
-import { prisma } from '../utils/prisma.server'
+import { getUser } from '../utils/users.server'
+import ControlPanel from '../components/dashboard/ControlPanel'
+import CallCenterTitle from '../components/dashboard/CallCenterTitle'
 
-export async function loader({ request }) {
-  const session = await getSession(request.headers.get('Cookie'))
-
-  if (!session.has('userId')) {
-    return redirect('/')
-  }
-
-  const userId = session.get('userId')
-
-  const user = await prisma.User.findUnique({
-    where: {
-      id: userId,
-    },
-  })
-
-  return user
-}
+// export async function loader({ request }) {
+//   const user = await getUser(request)
+//   return user
+// }
 
 function Index() {
-  const user = useLoaderData()
+  // const user = useLoaderData()
 
-  return <div>Call Center for {user.username}</div>
+  return (
+    <div className='flex h-screen'>
+      <div className='flex mx-4 my-10'>
+        <ControlPanel />
+        <div className='px-10'>
+          <CallCenterTitle />
+          <Outlet />
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default Index
