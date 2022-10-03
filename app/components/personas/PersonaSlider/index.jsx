@@ -1,17 +1,17 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState } from 'react'
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 import PersonaCard from './PersonaCard'
 
 function Index() {
-  const [idx, setIdx] = useState(0)
+  const [currentIdx, setCurrentIdx] = useState(0)
 
   const handleNext = () => {
-    setIdx((idx + 1) % p.length)
+    setCurrentIdx((currentIdx + 1) % p.length)
   }
 
   const handlePrev = () => {
-    setIdx((idx + p.length - 1) % p.length)
+    setCurrentIdx((currentIdx + p.length - 1) % p.length)
   }
 
   let p = [
@@ -39,21 +39,21 @@ function Index() {
   ]
 
   return (
-    <div className='px-10 py-3 flex flex-col items-center rounded-md'>
-      <h2 className='mb-10 text-type-primary self-start'>Your Personas</h2>
+    <div className='flex flex-col items-center px-10 py-3 rounded-md'>
+      <h2 className='self-start mb-10 text-type-primary'>Your Personas</h2>
 
       <div className='flex justify-between w-[250px]'>
-        <button className='group p-2' onClick={handlePrev}>
+        <button className='p-2 group' onClick={handlePrev}>
           <AiOutlineLeft className='text-type-secondary group-hover:text-type-primary' />
         </button>
 
         <div className='relative h-[200px] w-[150px]'>
           {p.map((p, i) => (
-            <PersonaCard key={p} persona={p} active={i == idx} />
+            <PersonaCard key={i} persona={p} active={i == currentIdx} />
           ))}
         </div>
 
-        <button className='group p-2' onClick={handleNext}>
+        <button className='p-2 group' onClick={handleNext}>
           <AiOutlineRight className='font-bold text-type-secondary group-hover:text-type-primary' />
         </button>
       </div>
