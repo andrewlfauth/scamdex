@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 import PersonaCard from './PersonaCard'
