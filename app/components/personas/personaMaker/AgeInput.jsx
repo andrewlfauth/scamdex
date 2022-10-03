@@ -1,11 +1,19 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import { AiOutlineCaretDown, AiOutlineCaretUp } from 'react-icons/ai'
 
 function AgeInput() {
   const [age, setAge] = useState('')
   const inputRef = useRef()
 
-  useEffect(() => {}, [])
+  const handleChange = (e) => {
+    const reg = new RegExp('^[0-9]+$')
+
+    if (!e.target.value.match(reg) && e.target.value !== '') {
+      return null
+    }
+
+    setAge(e.target.value)
+  }
 
   return (
     <div className='relative flex flex-col'>
@@ -14,7 +22,7 @@ function AgeInput() {
       </label>
       <input
         ref={inputRef}
-        onChange={(e) => setAge(e.target.value)}
+        onChange={handleChange}
         value={age}
         type='text'
         name='age'
