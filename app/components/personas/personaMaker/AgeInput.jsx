@@ -7,18 +7,21 @@ function AgeInput() {
   let intervalId = useRef()
 
   const decrementAge = () => {
-    if (!age || age == 1) return
+    if (!age || age == 1 || inputRef.current.value < 1) return
     setAge(Number(age) - 1)
   }
 
   const incrementAge = () => {
-    setAge(Number(age + 1))
+    setAge(Number(age) + 1)
   }
 
   const handleChange = (e) => {
     const reg = new RegExp('^[0-9]+$')
 
-    if (!e.target.value.match(reg) && e.target.value !== '') {
+    if (
+      (!e.target.value.match(reg) && e.target.value !== '') ||
+      inputRef.current.value == '0'
+    ) {
       return null
     }
 
@@ -27,7 +30,7 @@ function AgeInput() {
 
   const handleMouseDownInc = () =>
     (intervalId.current = setInterval(
-      () => setAge((age) => Number(age + 1)),
+      () => setAge((age) => Number(age) - 1),
       100
     ))
 
@@ -36,7 +39,7 @@ function AgeInput() {
       if (inputRef.current.value < 2) {
         return clearInterval(intervalId.current)
       }
-      setAge((age) => Number(age - 1))
+      setAge((age) => Number(age) - 1)
     }, 100)
   }
 
