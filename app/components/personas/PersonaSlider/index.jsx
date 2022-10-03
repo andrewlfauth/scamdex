@@ -5,7 +5,6 @@ import PersonaCard from './PersonaCard'
 
 function Index() {
   const [idx, setIdx] = useState(0)
-  const sliderRef = useRef()
 
   const handleNext = () => {
     setIdx((idx + 1) % p.length)
@@ -20,14 +19,14 @@ function Index() {
       name: 'Edna',
       age: '83',
       memoji:
-        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651962/classroom/Female_Memojis_dkwxqr.png',
+        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651959/classroom/Female_Memojis_1_rc28un.png',
       bio: "Endna's hobbies include mayonaise and purchasing bathtubs.",
     },
     {
       name: 'Bob',
       age: '3',
       memoji:
-        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651962/classroom/Female_Memojis_dkwxqr.png',
+        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651994/classroom/Male_Memojis_1_o9vvoj.png',
       bio: 'Fun stuff and stuff.',
     },
     {
@@ -40,17 +39,17 @@ function Index() {
   ]
 
   return (
-    <div className='px-10 py-3 border border-red-100 rounded-md'>
-      <h2 className='mb-4 text-type-primary'>Your Personas</h2>
+    <div className='px-10 py-3 flex flex-col items-center rounded-md'>
+      <h2 className='mb-10 text-type-primary self-start'>Your Personas</h2>
 
-      <div className='flex items-center'>
+      <div className='flex justify-between w-[250px]'>
         <button className='group p-2' onClick={handlePrev}>
           <AiOutlineLeft className='text-type-secondary group-hover:text-type-primary' />
         </button>
 
-        <div ref={sliderRef} className='flex overflow-hidden w-[150px]'>
+        <div className='relative h-[200px] w-[150px]'>
           {p.map((p, i) => (
-            <PersonaCard key={p} persona={p} />
+            <PersonaCard key={p} persona={p} active={i == idx} />
           ))}
         </div>
 
