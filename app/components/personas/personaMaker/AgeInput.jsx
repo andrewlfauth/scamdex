@@ -30,7 +30,7 @@ function AgeInput() {
 
   const handleMouseDownInc = () =>
     (intervalId.current = setInterval(
-      () => setAge((age) => Number(age) - 1),
+      () => setAge((age) => Number(age) + 1),
       100
     ))
 
