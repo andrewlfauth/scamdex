@@ -1116,6 +1116,10 @@ video {
   padding: 0.75rem;
 }
 
+.p-14 {
+  padding: 3.5rem;
+}
+
 .py-2 {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
