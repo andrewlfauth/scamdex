@@ -18,7 +18,8 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "react-icons": "^4.4.0",
-    "react-toastify": "^9.0.8"
+    "react-toastify": "^9.0.8",
+    "tmi.js": "^1.8.5"
   },
   "devDependencies": {
     "@remix-run/dev": "^1.7.2",

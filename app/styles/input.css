@@ -10,3 +10,28 @@
     stroke-dashoffset: 236;
   }
 }
+
+@layer utilities {
+  .chat {
+    overflow-y: scroll;
+  }
+
+  .chat::-webkit-scrollbar {
+    width: 6px;
+    height: 20px;
+  }
+
+  .chat::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+  }
+
+  .chat::-webkit-scrollbar-thumb {
+    background: #6a696a;
+    border-radius: 100vh;
+    height: 10px;
+  }
+
+  .chat::-webkit-scrollbar-thumb:hover {
+    background: #488fff;
+  }
+}
