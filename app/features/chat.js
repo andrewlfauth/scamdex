@@ -5,7 +5,11 @@ export async function startChat(channelName) {
     channels: [channelName],
   })
 
-  client.connect()
+  if (!client.channels.length) {
+    throw Error(`Couldn't find channel ${channelName}`)
+  }
+
+  await client.connect()
 
   return client
 }
