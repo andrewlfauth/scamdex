@@ -4,7 +4,9 @@ import { useLoaderData, Outlet } from '@remix-run/react'
 import { getUser } from '../utils/users.server'
 import ControlPanel from '../components/dashboard/ControlPanel'
 import CallCenterTitle from '../components/dashboard/CallCenterTitle'
-import TmiChat from '~/components/dashboard/tmi/index'
+import TmiChat from '../components/dashboard/tmi/index'
+import ClientOnly from '../components/ClientOnly'
+import { Client } from 'tmi.js'
 
 // export async function loader({ request }) {
 //   const user = await getUser(request)
@@ -24,7 +26,9 @@ function Index() {
             <Outlet />
           </div>
         </div>
-        <TmiChat />
+        <ClientOnly>
+          <TmiChat />
+        </ClientOnly>
       </div>
     </div>
   )
