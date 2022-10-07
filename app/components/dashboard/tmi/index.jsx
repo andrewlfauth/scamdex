@@ -22,6 +22,7 @@ client.connect().catch((err) => console.error(err))
 
 function Index() {
   const [chatMessages, setChatMessages] = useState([])
+  const [pausedMessages, setPausedMessages] = useState([])
   const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
   const [channel, setChannel] = useState(settings?.channel)
   const [state, setState] = useState('stopped')
@@ -29,28 +30,33 @@ function Index() {
   const controls = {
     play: () => setState('playing'),
     pause: () => setState('paused'),
+    stop: () => setState('stopped'),
     clear: () => setChatMessages([]),
   }
 
-  useEffect(() => {
-    if (settings.channel) {
-      setChannel(settings.channel)
-    }
-  }, [settings.channel])
+  // useEffect(() => {
+  //   if (settings.channel) {
+  //     setChannel(settings.channel)
+  //   }
+  // }, [settings.channel])
 
-  useEffect(() => {
-    async function a() {
-      await client.join(channel)
-      await client.part(client.channels[0])
-    }
+  // useEffect(() => {
+  //   async function a() {
+  //     await client.join(channel)
+  //     await client.part(client.channels[0])
+  //   }
 
-    if (channel) {
-      a()
-    }
-  }, [channel])
+  //   if (channel) {
+  //     a()
+  //   }
+  // }, [channel])
 
   useEffect(() => {
     if (state === 'playing') {
+      if (pausedMessages.length) {
+        setChatMessages((old) => [...old, ...pausedMessages])
+      }
+
       client.on('message', (channel, tags, message) => {
         setChatMessages((old) => [
           ...old,
@@ -66,12 +72,27 @@ function Index() {
     }
     if (state === 'paused') {
       client.removeAllListeners()
+      client.on('message', (channel, tags, message) => {
+        setPausedMessages((old) => [
+          ...old,
+          {
+            user: {
+              name: tags['display-name'],
+              color: tags.color || 'hotpink',
+            },
+            message: getMessageHTML(message, tags),
+          },
+        ])
+      })
     }
-  }, [state])
+    if (state === 'stopped') {
+      client.removeAllListeners()
+    }
+  }, [state, pausedMessages])
 
   return (
     <div className='flex flex-col min-w-[350px] max-w-[350px] h-[40vh] rounded-md bg-secondary'>
-      {state}
+      {state == 'paused' && <p>Chat paused, {pausedMessages.length}</p>}
       <Header channel={channel} state={state} controls={controls} />
       <ChatMessages
         controls={controls}
