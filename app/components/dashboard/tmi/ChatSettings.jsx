@@ -10,6 +10,7 @@ function ChatSettings() {
   const channelRef = useRef()
   const pauseOnHoverRef = useRef()
   const pauseOnAltRef = useRef()
+  const bufferRef = useRef()
 
   const handleSaveSettings = () => {
     const channel = channelRef.current.value
@@ -18,9 +19,9 @@ function ChatSettings() {
 
   return (
     <div className='absolute top-2 right-2'>
-      <IoSettingsOutline className='text-type-secondary text-lg cursor-pointer' />
+      <IoSettingsOutline className='text-lg cursor-pointer text-type-secondary' />
 
-      <div className='bg-primary rounded-md p-3 text-type-secondary'>
+      <div className='p-3 rounded-md bg-primary text-type-secondary'>
         <div className='flex flex-col'>
           <label htmlFor='channel' className='text-sm font-semibold'>
             Channel
@@ -29,16 +30,17 @@ function ChatSettings() {
             ref={channelRef}
             type='text'
             defaultValue={settings?.channel}
-            className='bg-transparent border-b border-type-secondary px-2 outline-none text-type-white w-32 text-sm'
+            className='w-32 px-2 text-sm bg-transparent border-b outline-none border-type-secondary text-type-white'
           />
         </div>
 
         <div className='flex justify-between mt-2'>
-          <span className='text-sm font-semibold mr-2'>Pause on hover</span>
+          <span className='mr-2 text-sm font-semibold'>Pause on hover</span>
           <input
             ref={pauseOnHoverRef}
             type='checkbox'
-            defaultChecked={settings?.pauseOnHover}
+            checked={settings.pauseOnHover}
+            disabled={settings.buffer}
             onChange={(e) => {
               setSettings((old) => ({ ...old, pauseOnHover: e.target.checked }))
             }}
@@ -46,7 +48,7 @@ function ChatSettings() {
         </div>
 
         <div className='flex justify-between mt-2'>
-          <span className='text-sm font-semibold flex mr-2 '>
+          <span className='flex mr-2 text-sm font-semibold '>
             Pause on
             <svg
               className='ml-[6px]'
@@ -74,7 +76,8 @@ function ChatSettings() {
           <input
             ref={pauseOnAltRef}
             type='checkbox'
-            defaultChecked={settings?.pauseOnP}
+            checked={settings.pauseOnP}
+            disabled={settings.buffer}
             onChange={(e) => {
               setSettings((old) => {
                 return { ...old, pauseOnP: e.target.checked }
@@ -83,8 +86,28 @@ function ChatSettings() {
           />
         </div>
 
+        <div className='flex justify-between mt-2'>
+          <span className='flex mr-2 text-sm font-semibold '>Buffer 5 sec</span>
+          <input
+            ref={bufferRef}
+            type='checkbox'
+            defaultChecked={settings.buffer}
+            onChange={(e) => {
+              setSettings((old) => {
+                return {
+                  ...old,
+                  pauseOnP: false,
+                  pauseOnHover: false,
+                  buffer: e.target.checked,
+                }
+              })
+              console.log(settings)
+            }}
+          />
+        </div>
+
         <button
-          className='rounded bg-accent-blue py-1 w-full font-semibold tracking-tight mt-4 text-primary hover:bg-opacity-90'
+          className='w-full py-1 mt-4 font-semibold tracking-tight rounded bg-accent-blue text-primary hover:bg-opacity-90'
           onClick={handleSaveSettings}
         >
           Save
