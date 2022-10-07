@@ -1,28 +1,27 @@
-function Header({ channel, listening, loading, stop, start, clear }) {
+import ChatAnimation from './ChatAnimation'
+import ChatSettings from './ChatSettings'
+
+function Header({ state, channel, controls }) {
   return (
-    <div className='p-3 text-center border-y rounded-t-md border-opacity-30 border-type-secondary'>
-      {/* {channel ? (
-        listening ? (
-          <button onClick={stop}>Stop</button>
-        ) : (
-          <button onClick={start}>Start</button>
-        )
-      ) : (
-        <span>Add a channel</span>
-      )} */}
-      {channel ? (
+    <div className='relative p-3 border-y rounded-t-md border-opacity-30 border-type-secondary'>
+      {state === 'playing' && <ChatAnimation />}
+
+      <ChatSettings />
+      <span className='block mb-2 font-semibold tracking-tight text-center text-type-primary'>
+        Stream Chat
+      </span>
+
+      {true ? (
         <>
-          <button
-            className={`${loading ? 'animate-spin' : ''}`}
-            onClick={start}
-          >
-            Start
-          </button>
-          <button onClick={stop}>Stop</button>
-          <button onClick={clear}>Clear</button>
+          <button onClick={controls.play}>Start</button>
+          <button onClick={controls.stop}>Stop</button>
+          <button onClick={controls.pause}>Pause</button>
+          <button onClick={controls.clear}>Clear</button>
         </>
       ) : (
-        <span>Add channel</span>
+        <span className='block text-xs text-center text-type-secondary'>
+          Edit settings to add channel
+        </span>
       )}
     </div>
   )
