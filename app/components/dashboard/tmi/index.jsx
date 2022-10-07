@@ -1,64 +1,83 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useReducer } from 'react'
+import { useAtom, atom } from 'jotai'
+import { atomWithStorage } from 'jotai/utils'
+import tmi from 'tmi.js'
 
-import { startChat, getMessageHTML } from '~/features/chat'
+import { getMessageHTML } from '~/features/chat'
 import Header from './Header'
-import Message from './Message'
+import ChatMessages from './ChatMessages'
+// import usePauseChatOnAlt from '../../hooks/usePauseChatOnAlt'
+
+export const chatSettingsStorageAtom = atomWithStorage('CHAT_SETTINGS', {
+  channel: '',
+  pauseOnHover: false,
+  pauseOnP: false,
+})
+
+const client = new tmi.Client({
+  channels: ['zackrawrr'],
+})
+
+client.connect().catch((err) => console.error(err))
 
 function Index() {
-  const user = { channel: 'hasanabi' } // will come form loader
-  // const user = useLoaderData
-
-  const [channel, setChannel] = useState(user?.channel) // loader
-  const [listening, setListening] = useState(false)
   const [chatMessages, setChatMessages] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
+  const [channel, setChannel] = useState(settings?.channel)
+  const [state, setState] = useState('stopped')
+
+  const controls = {
+    play: () => setState('playing'),
+    pause: () => setState('paused'),
+    clear: () => setChatMessages([]),
+  }
 
   useEffect(() => {
-    if (listening && !chatMessages.length) {
-      return setLoading(true)
+    if (settings.channel) {
+      setChannel(settings.channel)
     }
-    setLoading(false)
-  }, [chatMessages, listening])
+  }, [settings.channel])
 
   useEffect(() => {
-    if (channel && listening) {
-      let clientPromise = startChat(channel)
+    async function a() {
+      await client.join(channel)
+      await client.part(client.channels[0])
+    }
 
-      clientPromise.then((c) => {
-        c.on('message', (channel, tags, message) => {
-          setChatMessages((old) => [
-            ...old,
-            {
-              user: {
-                name: tags['display-name'],
-                color: tags.color || 'hotpink',
-              },
-              message: getMessageHTML(message, tags),
+    if (channel) {
+      a()
+    }
+  }, [channel])
+
+  useEffect(() => {
+    if (state === 'playing') {
+      client.on('message', (channel, tags, message) => {
+        setChatMessages((old) => [
+          ...old,
+          {
+            user: {
+              name: tags['display-name'],
+              color: tags.color || 'hotpink',
             },
-          ])
-        })
+            message: getMessageHTML(message, tags),
+          },
+        ])
       })
-
-      return () => clientPromise.then((c) => c.disconnect())
     }
-  }, [channel, listening])
+    if (state === 'paused') {
+      client.removeAllListeners()
+    }
+  }, [state])
 
   return (
-    <div className='flex flex-col min-w-[350px] max-w-[350px] rounded-md bg-secondary'>
-      <Header
-        channel={user.channel}
-        listening={listening}
-        loading={loading}
-        start={() => setListening(true)}
-        stop={() => setListening(false)}
-        clear={() => setChatMessages([])}
+    <div className='flex flex-col min-w-[350px] max-w-[350px] h-[40vh] rounded-md bg-secondary'>
+      {state}
+      <Header channel={channel} state={state} controls={controls} />
+      <ChatMessages
+        controls={controls}
+        state={state}
+        chatMessages={chatMessages}
       />
-
-      <div className='inline h-full p-3 chat'>
-        {chatMessages.map((m, i) => (
-          <Message key={i} item={m} />
-        ))}
-      </div>
     </div>
   )
 }
