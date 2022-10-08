@@ -3,10 +3,13 @@ import { useState, memo, useRef } from 'react'
 import { useAtom } from 'jotai'
 
 import { chatSettingsStorageAtom } from './index'
+import useModal from '../../hooks/useModal'
 
 function ChatSettings() {
   const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
   const [showSettings, setShowSettings] = useState(false)
+
+  const { modalRef, showModal, setShowModal } = useModal()
 
   const channelRef = useRef()
   const pauseOnHoverRef = useRef()
@@ -22,13 +25,16 @@ function ChatSettings() {
     <div className='absolute top-2 right-2'>
       <IoSettingsOutline
         className={`${
-          showSettings ? '-rotate-90 text-accent-blue' : 'text-type-secondary'
+          showModal ? '-rotate-90 text-accent-blue' : 'text-type-secondary'
         } text-lg duration-300 cursor-pointer`}
-        onClick={() => setShowSettings(!showSettings)}
+        onClick={() => setShowModal(!showModal)}
       />
 
-      {showSettings && (
-        <div className='p-3 rounded-md bg-primary text-type-secondary absolute right-4 top-6 w-40'>
+      {showModal && (
+        <div
+          ref={modalRef}
+          className='p-3 rounded-md bg-primary text-type-secondary absolute right-4 origin-top-right top-6 w-40'
+        >
           {/* <div className='flex flex-col'>
             <label htmlFor='channel' className='text-sm font-semibold'>
               Channel
