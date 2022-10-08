@@ -7,7 +7,7 @@ import usePauseChat from '../../hooks/usePauseChat'
 
 function ChatMessages({ state, chatMessages, controls }) {
   const chatRef = useRef()
-  const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
+  const [settings] = useAtom(chatSettingsStorageAtom)
 
   const { handleMouseEnter, handleMouseLeave } = usePauseChat(
     state,
