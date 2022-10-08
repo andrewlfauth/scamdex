@@ -25,7 +25,7 @@ function Index() {
   const [chatMessages, setChatMessages] = useState([])
   const [pausedMessages, setPausedMessages] = useState([])
   const [bufferedMessages, setBufferedMessages] = useState([])
-  const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
+  const [settings] = useAtom(chatSettingsStorageAtom)
   const [channel, setChannel] = useState(settings?.channel)
 
   const reducer = useCallback((state, action) => {
