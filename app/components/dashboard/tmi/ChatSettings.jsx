@@ -18,11 +18,9 @@ function ChatSettings() {
   const bufferRef = useRef()
 
   const handleSaveSettings = () => {
-    console.log(settings)
     const channel = channelRef.current.value
     setSettings((old) => ({ ...old, channel }))
     setShowModal(false)
-    console.log(settings)
   }
 
   return (
@@ -123,11 +121,7 @@ function ChatSettings() {
             <input
               ref={channelRef}
               type='text'
-              onChange={(e) =>
-                e.target.value.length
-                  ? setShowSaveBtn(true)
-                  : setShowSaveBtn(false)
-              }
+              onChange={(e) => setShowSaveBtn(true)}
               defaultValue={settings?.channel}
               className='w-32 px-2 text-sm bg-transparent border-b outline-none border-type-secondary text-type-white'
             />
