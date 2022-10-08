@@ -1,5 +1,5 @@
 import { IoSettingsOutline } from 'react-icons/io5'
-import { useState, memo, useRef } from 'react'
+import { memo, useRef } from 'react'
 import { useAtom } from 'jotai'
 
 import { chatSettingsStorageAtom } from './index'
