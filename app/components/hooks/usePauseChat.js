@@ -2,13 +2,14 @@ import { useEffect } from 'react'
 
 export default function usePauseChat(state, controls, settings) {
   const handleMouseEnter = () => {
-    if (state === 'playing') {
+    if (state === 'playing' && settings.pauseOnHover) {
       controls.pause()
+      console.log(settings)
     }
   }
 
   const handleMouseLeave = () => {
-    if (state !== 'stopped') {
+    if (state !== 'stopped' && settings.pauseOnHover) {
       controls.play()
     }
   }
