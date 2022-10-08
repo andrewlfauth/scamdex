@@ -7,33 +7,34 @@ import Totals from './Totals'
 // obj {name: "Edna", time: 21.2, percentage: 21.2 / total * 100}
 
 function index() {
+  let totalTime = 100
   let data = [
     {
       name: 'Edna',
-      time: 23.1,
+      time: 50,
       getPercent: function () {
-        return Math.round((this.time / 50.44) * 100)
+        return Math.round((this.time / totalTime) * 100)
       },
     },
     {
       name: 'Tim',
-      time: 0.14,
+      time: 10,
       getPercent: function () {
-        return Math.round((this.time / 50.44) * 100)
+        return Math.round((this.time / totalTime) * 100)
       },
     },
     {
       name: 'Jane',
-      time: 13.1,
+      time: 15,
       getPercent: function () {
-        return Math.round((this.time / 50.44) * 100)
+        return Math.round((this.time / totalTime) * 100)
       },
     },
     {
       name: 'Pop',
-      time: 20.1,
+      time: 25,
       getPercent: function () {
-        return Math.round((this.time / 50.44) * 100)
+        return Math.round((this.time / totalTime) * 100)
       },
     },
   ]
