@@ -34,18 +34,6 @@ function ChatSettings() {
           ref={modalRef}
           className='p-3 rounded-md bg-primary text-type-secondary absolute right-4 origin-top-right top-6 w-40'
         >
-          {/* <div className='flex flex-col'>
-            <label htmlFor='channel' className='text-sm font-semibold'>
-              Channel
-            </label>
-            <input
-              ref={channelRef}
-              type='text'
-              defaultValue={settings?.channel}
-              className='w-32 px-2 text-sm bg-transparent border-b outline-none border-type-secondary text-type-white'
-            />
-          </div> */}
-
           <div className='flex justify-between mt-2'>
             <span className='mr-2 text-sm font-semibold select-none'>
               Pause on hover
@@ -123,6 +111,17 @@ function ChatSettings() {
             />
           </div>
 
+          <div className='flex flex-col mt-2'>
+            <label htmlFor='channel' className='text-sm font-semibold'>
+              Channel
+            </label>
+            <input
+              ref={channelRef}
+              type='text'
+              defaultValue={settings?.channel}
+              className='w-32 px-2 text-sm bg-transparent border-b outline-none border-type-secondary text-type-white'
+            />
+          </div>
           <button
             className='w-full py-1 mt-4 font-semibold tracking-tight rounded bg-accent-blue text-primary hover:bg-opacity-90'
             onClick={handleSaveSettings}

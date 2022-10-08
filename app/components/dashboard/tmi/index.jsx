@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer } from 'react'
+import { useEffect, useState, useReducer, useMemo } from 'react'
 import { useAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import tmi from 'tmi.js'
@@ -15,7 +15,7 @@ export const chatSettingsStorageAtom = atomWithStorage('CHAT_SETTINGS', {
 })
 
 const client = new tmi.Client({
-  channels: ['moistcr1tikal'],
+  channels: ['kitboga'],
 })
 
 client.connect().catch((err) => console.error(err))
@@ -28,6 +28,14 @@ function Index() {
   const [settings] = useAtom(chatSettingsStorageAtom)
   const [channel, setChannel] = useState(settings?.channel)
 
+  const controls = {
+    play: () => setState('playing'),
+    pause: () => setState('paused'),
+    stop: () => setState('stopped'),
+    buffer: () => setState('buffered'),
+    clear: () => setChatMessages([]),
+  }
+
   const reducer = (state, action) => {
     if (action.type === 'buff') {
       setChatMessages((old) => [...old, ...bufferedMessages])
@@ -36,14 +44,6 @@ function Index() {
   }
 
   const [, dispatch] = useReducer(reducer)
-
-  const controls = {
-    play: () => setState('playing'),
-    pause: () => setState('paused'),
-    stop: () => setState('stopped'),
-    buffer: () => setState('buffered'),
-    clear: () => setChatMessages([]),
-  }
 
   useEffect(() => {
     if (settings.buffer) {
@@ -55,22 +55,23 @@ function Index() {
     }
   }, [settings.buffer])
 
-  // useEffect(() => {
-  //   if (settings.channel) {
-  //     setChannel(settings.channel)
-  //   }
-  // }, [settings.channel])
+  useEffect(() => {
+    if (settings.channel) {
+      setChannel(settings.channel)
+    }
+  }, [settings.channel])
 
-  // useEffect(() => {
-  //   async function a() {
-  //     await client.join(channel)
-  //     await client.part(client.channels[0])
-  //   }
+  useEffect(() => {
+    async function changeChannel() {
+      await client.join(channel)
+      await client.part(client.channels[0])
+      await client.clear(client.channels[0])
+    }
 
-  //   if (channel) {
-  //     a()
-  //   }
-  // }, [channel])
+    if (channel) {
+      changeChannel()
+    }
+  }, [channel])
 
   useEffect(() => {
     // Buffer

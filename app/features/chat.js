@@ -5,7 +5,9 @@ export async function startChat(channelName) {
     channels: [channelName],
   })
 
-  client.connect().catch((err) => console.log(err, 'LKJFD'))
+  client
+    .connect()
+    .catch((err) => console.log(`Failed to connect to Twitch: ${err}`))
 
   return client
 }
