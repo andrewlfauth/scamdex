@@ -9,15 +9,22 @@ export default function useModal() {
     }
   }
 
-  const animateIn = [
-    { transform: 'scale(0.9)', opacity: 0 },
-    { transform: 'scale(1)', opacity: 1 },
-  ]
+  const handleEsc = (e) => {
+    if (e.key === 'Escape') {
+      setShowModal(false)
+    }
+  }
 
   useEffect(() => {
+    const animateIn = [
+      { transform: 'scale(0.9)', opacity: 0 },
+      { transform: 'scale(1)', opacity: 1 },
+    ]
+
     if (showModal) {
       modalRef.current.animate(animateIn, { duration: 100 })
       document.addEventListener('click', handleClick)
+      document.addEventListener('keydown', handleEsc)
 
       return () => document.removeEventListener('click', handleClick)
     } else {
