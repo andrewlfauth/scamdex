@@ -7,7 +7,6 @@ import useModal from '../../hooks/useModal'
 
 function ChatSettings() {
   const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
-  const [showSettings, setShowSettings] = useState(false)
 
   const { modalRef, showModal, setShowModal } = useModal()
 
