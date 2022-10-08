@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useCallback } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import { useAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import tmi from 'tmi.js'
@@ -28,12 +28,13 @@ function Index() {
   const [settings] = useAtom(chatSettingsStorageAtom)
   const [channel, setChannel] = useState(settings?.channel)
 
-  const reducer = useCallback((state, action) => {
+  const reducer = (state, action) => {
     if (action.type === 'buff') {
       setChatMessages((old) => [...old, ...bufferedMessages])
       setBufferedMessages([])
     }
-  })
+  }
+
   const [, dispatch] = useReducer(reducer)
 
   const controls = {
@@ -141,7 +142,7 @@ function Index() {
   return (
     <div className='flex flex-col min-w-[350px] max-w-[350px] h-full rounded-md bg-secondary relative'>
       {/* {settings.buffer && 'BUFF'} */}
-      {/* {bufferedMessages.length} {' ' + chatMessages.length} */}
+      {bufferedMessages.length} {' ' + chatMessages.length}
       {/* {state == 'paused' && <p>Chat paused, {pausedMessages.length}</p>} */}
       <Header
         channel={channel}
