@@ -48,7 +48,7 @@ function Index() {
     if (settings.buffer) {
       let id = setInterval(() => {
         dispatch({ type: 'buff' })
-      }, 3000)
+      }, 2000)
 
       return () => clearInterval(id)
     }
@@ -154,11 +154,6 @@ function Index() {
         state={state}
         chatMessages={chatMessages}
       />
-      {/* {true && (
-        <div className='absolute top-20 left-0 w-full rounded-md bg-black border border-type-secondary bg-opacity-60 text-type-white text-center justify-center py-1 text-sm flex items-center'>
-          <span>{pausedMessages.length} unseen msgs</span>
-        </div>
-      )} */}
     </div>
   )
 }

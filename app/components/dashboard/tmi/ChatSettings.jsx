@@ -98,7 +98,7 @@ function ChatSettings() {
 
           <div className='flex justify-between mt-2'>
             <span className='flex mr-2 text-sm font-semibold '>
-              Buffer 5 sec
+              Buffer chat
             </span>
             <input
               ref={bufferRef}
