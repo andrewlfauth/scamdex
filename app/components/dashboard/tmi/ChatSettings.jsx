@@ -1,12 +1,14 @@
 import { IoSettingsOutline } from 'react-icons/io5'
-import { memo, useRef } from 'react'
+import { memo, useRef, useState } from 'react'
 import { useAtom } from 'jotai'
+import { AiOutlineCheckCircle } from 'react-icons/ai'
 
 import { chatSettingsStorageAtom } from './index'
 import useModal from '../../hooks/useModal'
 
 function ChatSettings() {
   const [settings, setSettings] = useAtom(chatSettingsStorageAtom)
+  const [showSaveBtn, setShowSaveBtn] = useState(false)
 
   const { modalRef, showModal, setShowModal } = useModal()
 
@@ -16,8 +18,11 @@ function ChatSettings() {
   const bufferRef = useRef()
 
   const handleSaveSettings = () => {
+    console.log(settings)
     const channel = channelRef.current.value
     setSettings((old) => ({ ...old, channel }))
+    setShowModal(false)
+    console.log(settings)
   }
 
   return (
@@ -111,23 +116,30 @@ function ChatSettings() {
             />
           </div>
 
-          <div className='flex flex-col mt-2'>
+          <div className='flex flex-col mt-2 relative'>
             <label htmlFor='channel' className='text-sm font-semibold'>
               Channel
             </label>
             <input
               ref={channelRef}
               type='text'
+              onChange={(e) =>
+                e.target.value.length
+                  ? setShowSaveBtn(true)
+                  : setShowSaveBtn(false)
+              }
               defaultValue={settings?.channel}
               className='w-32 px-2 text-sm bg-transparent border-b outline-none border-type-secondary text-type-white'
             />
+            {showSaveBtn && (
+              <button
+                onClick={handleSaveSettings}
+                className='absolute right-0 top-4 hover:text-accent-blue'
+              >
+                <AiOutlineCheckCircle />
+              </button>
+            )}
           </div>
-          <button
-            className='w-full py-1 mt-4 font-semibold tracking-tight rounded bg-accent-blue text-primary hover:bg-opacity-90'
-            onClick={handleSaveSettings}
-          >
-            Save
-          </button>
         </div>
       )}
     </div>
