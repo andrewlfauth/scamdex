@@ -1,40 +1,6 @@
-import tmi from 'tmi.js'
-
-export async function startChat(channelName) {
-  const client = new tmi.Client({
-    channels: [channelName],
-  })
-
-  client
-    .connect()
-    .catch((err) => console.log(`Failed to connect to Twitch: ${err}`))
-
-  return client
-}
-
-export async function formatChatMessage(tags, message) {
-  console.log({
-    user: {
-      name: tags['display-name'],
-      color: tags.color,
-    },
-    message,
-  })
-  return {
-    user: {
-      name: tags['display-name'],
-      color: tags.color,
-    },
-    message,
-  }
-}
-
 export function getMessageHTML(message, { emotes }) {
   if (!emotes) return message
 
-  // store all emote keywords
-  // ! you have to first scan through
-  // the message string and replace later
   const stringReplacements = []
 
   // iterate of emotes to access ids and positions
