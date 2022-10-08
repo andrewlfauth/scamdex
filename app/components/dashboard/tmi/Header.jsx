@@ -5,10 +5,12 @@ function Header({ state, controls, pausedMessages }) {
   return (
     <div className='relative p-3 border-y rounded-t-md border-opacity-30 border-type-secondary'>
       {state === 'playing' && <ChatAnimation />}
-      {state === 'paused' && (
+      {state === 'paused' && pausedMessages.length ? (
         <span className='text-accent-blue tracking-tight top-1 left-[9px] text-xs absolute font-semibold'>
           {pausedMessages.length} unseen
         </span>
+      ) : (
+        ''
       )}
 
       <ChatSettings />
