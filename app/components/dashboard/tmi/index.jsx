@@ -1,4 +1,4 @@
-import { useEffect, useState, useReducer, useMemo } from 'react'
+import { useEffect, useState, useReducer } from 'react'
 import { useAtom } from 'jotai'
 import { atomWithStorage } from 'jotai/utils'
 import tmi from 'tmi.js'
