@@ -47,23 +47,25 @@ function ChatSettings() {
           </div> */}
 
           <div className='flex justify-between mt-2'>
-            <span className='mr-2 text-sm font-semibold'>Pause on hover</span>
+            <span className='mr-2 text-sm font-semibold select-none'>
+              Pause on hover
+            </span>
             <input
               ref={pauseOnHoverRef}
               type='checkbox'
               checked={settings.pauseOnHover}
-              disabled={settings.buffer}
               onChange={(e) => {
                 setSettings((old) => ({
                   ...old,
                   pauseOnHover: e.target.checked,
+                  buffer: false,
                 }))
               }}
             />
           </div>
 
           <div className='flex justify-between mt-2'>
-            <span className='flex mr-2 text-sm font-semibold '>
+            <span className='flex select-none mr-2 text-sm font-semibold '>
               Pause on
               <svg
                 className='ml-[6px]'
@@ -92,23 +94,22 @@ function ChatSettings() {
               ref={pauseOnAltRef}
               type='checkbox'
               checked={settings.pauseOnP}
-              disabled={settings.buffer}
               onChange={(e) => {
                 setSettings((old) => {
-                  return { ...old, pauseOnP: e.target.checked }
+                  return { ...old, pauseOnP: e.target.checked, buffer: false }
                 })
               }}
             />
           </div>
 
           <div className='flex justify-between mt-2'>
-            <span className='flex mr-2 text-sm font-semibold '>
+            <span className='flex mr-2 text-sm select-none font-semibold '>
               Buffer chat
             </span>
             <input
               ref={bufferRef}
               type='checkbox'
-              defaultChecked={settings.buffer}
+              checked={settings.buffer}
               onChange={(e) => {
                 setSettings((old) => {
                   return {

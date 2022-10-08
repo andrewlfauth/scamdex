@@ -141,9 +141,6 @@ function Index() {
 
   return (
     <div className='flex flex-col min-w-[350px] max-w-[350px] h-full rounded-md bg-secondary relative'>
-      {/* {settings.buffer && 'BUFF'} */}
-      {bufferedMessages.length} {' ' + chatMessages.length}
-      {/* {state == 'paused' && <p>Chat paused, {pausedMessages.length}</p>} */}
       <Header
         channel={channel}
         pausedMessages={pausedMessages}

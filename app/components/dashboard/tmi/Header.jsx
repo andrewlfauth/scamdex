@@ -14,7 +14,7 @@ function Header({ state, controls, pausedMessages }) {
       )}
 
       <ChatSettings />
-      <span className='block mb-2 font-semibold tracking-tight text-center text-type-primary'>
+      <span className='block mb-2 font-semibold tracking-tight text-center text-type-primary select-none'>
         Stream Chat
       </span>
 
