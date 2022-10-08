@@ -1,20 +1,16 @@
 import { VscEdit } from 'react-icons/vsc'
 import { useState, useEffect, useRef } from 'react'
 
+import useModal from '../hooks/useModal'
+
 function CallCenterTitle() {
   const [title, setTitle] = useState()
-  const [showForm, setShowForm] = useState(false)
   const inputRef = useRef()
-
-  const closeOnEsc = (e) => {
-    if (e.key === 'Escape') {
-      setShowForm(false)
-    }
-  }
+  const { showModal, setShowModal, modalRef } = useModal()
 
   const saveName = () => {
     setTitle(inputRef.current.value)
-    setShowForm(false)
+    setShowModal(false)
   }
 
   useEffect(() => {
@@ -28,13 +24,6 @@ function CallCenterTitle() {
   }, [])
 
   useEffect(() => {
-    if (showForm) {
-      document.addEventListener('keydown', closeOnEsc)
-      return () => document.removeEventListener('keydown', closeOnEsc)
-    }
-  }, [showForm])
-
-  useEffect(() => {
     window.localStorage.setItem('CALL_CENTER_TITLE', title)
   }, [title])
 
@@ -44,20 +33,24 @@ function CallCenterTitle() {
         {title}
         <VscEdit
           className={`${
-            showForm ? 'text-accent-blue' : 'hidden group-hover:block'
-          } text-type-secondary rounded-md cursor-pointer -mt-3 ml-1  text-[18px] `}
-          onClick={() => setShowForm(!showForm)}
+            showModal ? '' : 'hidden group-hover:block'
+          } text-type-secondary rounded-md cursor-pointer -mt-3 ml-1  text-[18px]`}
+          onClick={() => setShowModal(!showModal)}
         />
       </h1>
       <p className='mt-1 text-sm text-type-secondary'>
         Welcome to your call center.
       </p>
 
-      {showForm && (
-        <div className='absolute px-4 py-3 mt-2 rounded bg-secondary'>
+      {showModal && (
+        <div
+          ref={modalRef}
+          className='absolute px-4 py-3 mt-2 rounded bg-secondary'
+        >
           <input
             ref={inputRef}
             type='text'
+            autoFocus={showModal}
             className='px-2 py-1 bg-transparent border-2 rounded border-type-secondary text-type-white outline-accent-blue ring-0'
           />
           <button
