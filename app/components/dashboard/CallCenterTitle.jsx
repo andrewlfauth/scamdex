@@ -19,7 +19,8 @@ function CallCenterTitle() {
 
   useEffect(() => {
     const existingTitle = window.localStorage.getItem('CALL_CENTER_TITLE')
-    if (existingTitle) {
+
+    if (existingTitle && existingTitle !== 'undefined') {
       setTitle(existingTitle)
     } else {
       setTitle('You Call Center')
