@@ -6,7 +6,6 @@ import ControlPanel from '../components/dashboard/ControlPanel'
 import CallCenterTitle from '../components/dashboard/CallCenterTitle'
 import TmiChat from '../components/dashboard/tmi/index'
 import ClientOnly from '../components/ClientOnly'
-import { Client } from 'tmi.js'
 
 // export async function loader({ request }) {
 //   const user = await getUser(request)

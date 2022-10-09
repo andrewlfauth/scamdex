@@ -1,6 +1,7 @@
 import PersonaMaker from '../../components/personas/PersonaMaker/index'
 import PersonaSlider from '../../components/personas/PersonaSlider/index'
 import PersonaTimeStats from '~/components/personas/PersonaTimeStats/index'
+import TopPerformingPersonas from '~/components/personas/TopPerformingPersonas/index'
 
 function Index() {
   return (
@@ -10,10 +11,11 @@ function Index() {
         Manage you scambait personas.
       </p>
 
-      <div className='grid grid-cols-2 gap-4 mt-4'>
-        {/* <PersonaMaker />
-        <PersonaSlider /> */}
-        <PersonaTimeStats />
+      <div className='flex mt-4'>
+        <TopPerformingPersonas />
+        {/* <PersonaSlider /> */}
+        {/* <PersonaTimeStats /> */}
+        {/* <PersonaMaker /> */}
       </div>
     </div>
   )
