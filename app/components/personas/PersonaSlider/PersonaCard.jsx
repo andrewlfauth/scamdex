@@ -28,9 +28,9 @@ function PersonaCard({ persona, active }) {
       </p>
 
       <div className='z-10 flex justify-around w-full px-2 py-1 mt-4 text-xl rounded-md text-type-secondary'>
-        <MdOutlineDescription className='cursor-pointer hover:text-accent-blue' />
-        <BiPhoneCall className='cursor-pointer hover:text-accent-purple' />
-        <MdOutlineTimelapse className='cursor-pointer hover:text-accent-red' />
+        <MdOutlineDescription className='cursor-help hover:text-accent-blue' />
+        <BiPhoneCall className='cursor-help hover:text-accent-purple' />
+        <MdOutlineTimelapse className='cursor-help hover:text-accent-red' />
       </div>
     </div>
   )
