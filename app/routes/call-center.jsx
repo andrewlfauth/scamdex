@@ -17,9 +17,9 @@ function Index() {
 
   return (
     <div className='flex h-screen'>
-      <div className='flex justify-between w-full mx-4 my-10'>
+      <div className='flex w-full mx-4 my-6'>
         <ControlPanel />
-        <div className='px-10'>
+        <div className='px-10 w-full'>
           <CallCenterTitle />
           <div className='mt-4'>
             <Outlet />

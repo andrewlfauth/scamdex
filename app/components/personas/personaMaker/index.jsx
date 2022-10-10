@@ -7,7 +7,7 @@ import BioInput from './BioInput'
 
 function PersonaMaker() {
   return (
-    <div className='bg-secondary w-[340px] rounded-md p-4'>
+    <div className='bg-secondary w-[300px] rounded-md p-4'>
       <h2 className='mb-4 text-type-primary'>Persona Factory</h2>
       <Form method='post' className='flex flex-col'>
         <div className='flex space-x-6'>

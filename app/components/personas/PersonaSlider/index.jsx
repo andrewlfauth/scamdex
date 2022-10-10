@@ -39,9 +39,7 @@ function Index() {
   ]
 
   return (
-    <div className='flex flex-col items-center px-10 py-3 rounded-md'>
-      <h2 className='self-start mb-10 text-type-primary'>Your Personas</h2>
-
+    <div className='flex flex-col items-center w-fit pt-8 pb-20'>
       <div className='flex justify-between w-[250px]'>
         <button className='p-2 group' onClick={handlePrev}>
           <AiOutlineLeft className='text-type-secondary group-hover:text-type-primary' />

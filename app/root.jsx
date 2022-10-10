@@ -43,6 +43,13 @@ export default function App() {
         <Links />
       </head>
       <body className='font-lato bg-primary'>
+        <div className='absolute top-2 left-2 text-white'>
+          <span className='hidden xl:block'>Extra Large</span>
+          <span className='hidden lg:block xl:hidden'>Large</span>
+          <span className='hidden md:block lg:hidden'>Medium</span>
+          <span className='hidden sm:block md:hidden'>Small</span>
+          <span className='sm:hidden'>Small</span>
+        </div>
         <ToastContainer position='top-center' />
         {/* <Navbar /> */}
         <Outlet />
