@@ -17,6 +17,15 @@ function ControlPanel() {
           } text-xl`}
         />
       </Link>
+      <Link to='/call-center/calls'>
+        <BiPhoneCall
+          className={`${
+            path === '/call-center/calls'
+              ? 'text-accent-blue'
+              : 'text-type-secondary hover:text-accent-blue'
+          } text-xl`}
+        />
+      </Link>
       <Link to='/call-center/personas'>
         <MdFace
           className={`${

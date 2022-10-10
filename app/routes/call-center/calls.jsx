@@ -1,40 +1,23 @@
-import AddCall from '../../components/calls/AddCall'
-import { createCall } from '../../utils/calls.server'
-import tmi from 'tmi.js'
-import { useEffect, useMemo } from 'react'
+import { useAtom, atom } from 'jotai'
 
-export async function action({ request }) {
-  const formData = await request.formData()
-  const { action, ...values } = Object.fromEntries(formData)
+import CreateCall from '~/components/calls/CreateCall'
+import SavedCalls from '~/components/calls/SavedCalls'
 
-  if (action === 'create') {
-    await createCall(values, request)
-  }
-  return null
-}
+export const ActiveCallAtom = atom()
 
 function Index() {
-  const client = useMemo(
-    () =>
-      new tmi.Client({
-        channels: ['kitboga'],
-      }),
-    []
+  const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
+
+  return (
+    <div className='mt-10'>
+      <h1 className='text-lg font-semibold text-type-primary'>Calls</h1>
+
+      <div className='w-full flex '>
+        <SavedCalls />
+        <CreateCall />
+      </div>
+    </div>
   )
-
-  useEffect(() => {
-    client.on('message', (channel, tags, message, self) => {
-      // console.log(`${tags['display-name']}: ${message}`)
-      // console.log(message)
-      return () => {
-        client.disconnect()
-      }
-    })
-  }, [client])
-
-  client.connect()
-
-  return <div className='mt-10'>{/* <AddCall /> */}</div>
 }
 
 export default Index
