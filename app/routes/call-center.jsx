@@ -1,4 +1,3 @@
-import { redirect } from '@remix-run/node'
 import { useLoaderData, Outlet } from '@remix-run/react'
 
 import { getUser } from '../utils/users.server'
@@ -7,10 +6,10 @@ import CallCenterTitle from '../components/dashboard/CallCenterTitle'
 import TmiChat from '../components/dashboard/tmi/index'
 import ClientOnly from '../components/ClientOnly'
 
-// export async function loader({ request }) {
-//   const user = await getUser(request)
-//   return user
-// }
+export async function loader({ request }) {
+  const user = await getUser(request)
+  return user
+}
 
 function Index() {
   // const user = useLoaderData()
@@ -19,15 +18,15 @@ function Index() {
     <div className='flex h-screen'>
       <div className='flex w-full mx-4 my-6'>
         <ControlPanel />
-        <div className='px-10 w-full'>
+        <div className='w-full px-10'>
           <CallCenterTitle />
           <div className='mt-4'>
             <Outlet />
           </div>
         </div>
-        <ClientOnly>
+        {/* <ClientOnly>
           <TmiChat />
-        </ClientOnly>
+        </ClientOnly> */}
       </div>
     </div>
   )

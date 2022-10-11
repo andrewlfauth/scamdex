@@ -6,20 +6,20 @@ function SavedCallCard({ call }) {
   const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
 
   return (
-    <div className='bg-secondary rounded-md p-4 relative'>
+    <div className='relative p-4 rounded-md bg-secondary'>
       <div className='flex items-end mb-4'>
-        <h3 className='text-type-secondary font-semibold'>{call.name}</h3>
+        <h3 className='font-semibold text-type-secondary'>{call.name}</h3>
         <button
-          className='bg-accent-purple font-bold py-1 text-secondary px-2 ml-4 rounded w-full hover:bg-opacity-80 duration-100'
-          onClick={() => setActiveCall(call.id)}
+          className='w-full px-2 py-1 ml-4 font-bold duration-100 rounded bg-accent-purple text-secondary hover:bg-opacity-80'
+          onClick={() => setActiveCall(call._id)}
         >
           Open Call
         </button>
       </div>
-      <span className='font-semibold block text-type-secondary text-sm mb-1'>
+      <span className='block mb-1 text-sm font-semibold text-type-secondary'>
         Fake {call.scamCompany}
       </span>
-      <span className='font-semibold block text-type-secondary'>
+      <span className='block font-semibold text-type-secondary'>
         {call.scamNumber}
       </span>
     </div>

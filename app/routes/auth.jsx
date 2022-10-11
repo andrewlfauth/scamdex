@@ -49,7 +49,7 @@ export default function Index() {
   }, [transition])
 
   return (
-    <main className='flex flex-col items-center h-screen px-4 sm:px-6 lg:px-8 py-32'>
+    <main className='flex flex-col items-center h-screen px-4 py-32 sm:px-6 lg:px-8'>
       <RegisterForm />
     </main>
   )

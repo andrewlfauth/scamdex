@@ -1,5 +1,5 @@
 import { Form } from '@remix-run/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 let personas = [
   {
@@ -16,65 +16,72 @@ let personas = [
   },
 ]
 
-function CreateCall() {
-  const [persona, setPersona] = useState()
+function CreateCall({ callId }) {
+  const [persona, setPersona] = useState('')
+
+  useEffect(() => {
+    if (callId) {
+      localStorage.setItem(callId, '0')
+    }
+  }, [callId])
 
   return (
-    <div className='bg-secondary rounded-md p-4 w-fit'>
+    <div className='p-4 rounded-md bg-secondary w-fit'>
       <h2 className='font-semibold text-type-secondary'>New Call</h2>
 
       <Form className='mt-6' method='post'>
         <input type='hidden' name='action' value='create' />
         <div className='flex flex-col mt-4'>
           <label
-            htmlFor='scam-number'
-            className='text-type-secondary text-sm mb-2'
+            htmlFor='callName'
+            className='mb-2 text-sm text-type-secondary'
           >
             Give this call a name
           </label>
           <input
             type='text'
-            name='call-name'
+            name='callName'
             placeholder='ex. Scamazon'
-            className='bg-neutral-800 rounded-full outline-accent-blue px-4 py-2 w-60 text-lg font-semibold text-accent-blue text-center placeholder:text-sm placeholder:text-type-secondary placeholder:text-left'
+            className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue placeholder:text-sm placeholder:text-type-secondary placeholder:text-left'
           />
         </div>
         <div className='flex flex-col mt-4'>
           <label
-            htmlFor='scam-number'
-            className='text-type-secondary text-sm mb-2'
+            htmlFor='scamNumber'
+            className='mb-2 text-sm text-type-secondary'
           >
             Their phone number
           </label>
           <input
             type='text'
-            name='scam-number'
-            className='bg-neutral-800 rounded-full outline-accent-blue px-4 py-2 w-60 text-lg font-semibold text-accent-blue text-center'
+            name='scamNumber'
+            className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue'
           />
         </div>
         <div className='flex flex-col mt-4'>
           <label
-            htmlFor='scam-company'
-            className='text-type-secondary text-sm mb-2'
+            htmlFor='scamCompany'
+            className='mb-2 text-sm text-type-secondary'
           >
             Who are they claiming to be?
           </label>
           <input
             type='text'
-            name='scam-company'
-            className='bg-neutral-800 rounded-full outline-accent-blue px-4 py-2 w-60 text-lg font-semibold text-accent-blue text-center'
+            name='scamCompany'
+            className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue'
           />
         </div>
         <div className='flex flex-col mt-4'>
-          <label className='text-type-secondary text-sm mb-2'>
+          <label className='mb-2 text-sm text-type-secondary'>
             Who will you be?
           </label>
+          <input type='hidden' name='persona' value={persona} />
           <div className='flex flex-wrap gap-4'>
             {personas.map((p, i) => (
               <div
                 key={i}
-                className='group cursor-pointer'
-                onClick={() => setPersona(p.id)}
+                className='cursor-pointer group'
+                onClick={() => setPersona(JSON.stringify(p))}
               >
                 <img
                   src={p.memoji}
@@ -97,21 +104,21 @@ function CreateCall() {
           </div>
           <div className='flex flex-col mt-4'>
             <label
-              htmlFor='company'
-              className='text-type-secondary text-sm mb-2'
+              htmlFor='baiterNumber'
+              className='mb-2 text-sm text-type-secondary'
             >
               Which phone number will you use?
             </label>
             <input
               type='text'
-              name='baiter-number'
-              className='bg-neutral-800 rounded-full outline-accent-blue px-4 py-2 w-60 text-lg font-semibold text-accent-blue text-center'
+              name='baiterNumber'
+              className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue'
             />
           </div>
         </div>
         <div className='flex flex-col mt-6'>
           <button
-            className='bg-primary rounded-full font-semibold text-accent-blue py-3 w-60 hover:bg-accent-blue hover:text-primary duration-500'
+            className='py-3 font-semibold duration-500 rounded-full bg-primary text-accent-blue w-60 hover:bg-accent-blue hover:text-primary'
             onClick={() => console.log('PPp')}
           >
             Save Call

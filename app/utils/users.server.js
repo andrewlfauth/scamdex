@@ -1,14 +1,14 @@
 import bcrypt from 'bcryptjs'
 import { redirect } from '@remix-run/node' // or cloudflare/deno
 
-import { prisma } from './prisma.server'
+import Users from '~/models/Users'
 import { getSession, commitSession } from '../sessions'
 
 export async function createUser(values, request) {
   const session = await getSession(request.headers.get('Cookie'))
 
-  const exists = await prisma.User.count({
-    where: { username: values.username },
+  const exists = await Users.findOne({
+    username: values.username,
   })
 
   if (exists) {
@@ -17,11 +17,9 @@ export async function createUser(values, request) {
 
   const hash = await bcrypt.hash(values.password, 10)
 
-  const user = await prisma.User.create({
-    data: {
-      username: values.username,
-      password: hash,
-    },
+  const user = await Users.create({
+    username: values.username,
+    password: hash,
   })
 
   session.set('userId', user.id)
@@ -36,10 +34,8 @@ export async function createUser(values, request) {
 export async function loginUser(values, request) {
   const session = await getSession(request.headers.get('Cookie'))
 
-  const user = await prisma.User.findFirst({
-    where: {
-      username: values.username,
-    },
+  const user = await Users.findOne({
+    username: values.username,
   })
 
   if (!user) {
@@ -70,10 +66,8 @@ export async function getUser(request) {
 
   const userId = session.get('userId')
 
-  const user = await prisma.User.findUnique({
-    where: {
-      id: userId,
-    },
+  const user = await Users.find({
+    id: userId,
   })
 
   return user

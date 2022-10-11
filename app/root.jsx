@@ -1,6 +1,7 @@
 import { ToastContainer } from 'react-toastify'
 import toastStyles from 'react-toastify/dist/ReactToastify.css'
 
+import { connect } from './utils/db.server'
 import tailwindURL from './styles/tailwind.css'
 import Navbar from './components/Navbar'
 const {
@@ -23,6 +24,11 @@ export const links = () => {
     { rel: 'stylesheet', href: tailwindURL },
     { rel: 'stylesheet', href: toastStyles },
   ]
+}
+
+export async function loader() {
+  connect()
+  return null
 }
 
 export default function App() {

@@ -1,28 +1,58 @@
 import { redirect } from '@remix-run/node'
-// import { prisma } from './prisma.server'
-import { PrismaClient } from '@prisma/client'
 
 import { getSession } from '../sessions'
+import Users from '../models/Users'
+import Calls from '../models/Calls'
 
-const prisma = new PrismaClient()
-
-export async function createCall(values, request) {
+export async function createCall(request, values) {
   const session = await getSession(request.headers.get('Cookie'))
 
   if (!session.has('userId')) {
     return redirect('/auth')
   }
 
-  const user = await prisma.User.findFirst({
-    where: {
-      id: session.userId,
-    },
+  const user = await Users.findOne({
+    id: session.userId,
   })
 
   if (!user) {
     return redirect('/auth')
   }
 
-  let a = await prisma.Call.findFirst()
-  console.log(a)
+  const userId = user._id.toString()
+
+  const call = await Calls.create({
+    name: values.callName,
+    scamNumber: values.scamNumber,
+    scamCompany: values.scamCompany,
+    persona: JSON.parse(values.persona),
+    baiterNumber: values.baiterNumber,
+    userId,
+  })
+
+  const callId = call._id.toString()
+
+  return callId
+}
+
+export async function getAllCalls(request) {
+  const session = await getSession(request.headers.get('Cookie'))
+
+  if (!session.has('userId')) {
+    return redirect('/auth')
+  }
+
+  const user = await Users.findOne({
+    id: session.userId,
+  })
+
+  if (!user) {
+    return redirect('/auth')
+  }
+
+  const userId = user._id.toString()
+
+  const calls = await Calls.find({ userId })
+
+  return calls
 }
