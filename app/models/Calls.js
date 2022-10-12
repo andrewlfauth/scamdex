@@ -8,6 +8,7 @@ const CallSchema = mongoose.Schema(
     persona: Object,
     baiterNumber: String,
     userId: String,
+    scammerName: Array,
   },
   {
     timestamps: true,
