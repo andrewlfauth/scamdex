@@ -1,5 +1,5 @@
-import { Form } from '@remix-run/react'
-import { useEffect, useState } from 'react'
+import { Form, useTransition } from '@remix-run/react'
+import { useEffect, useState, useRef } from 'react'
 
 let personas = [
   {
@@ -18,6 +18,16 @@ let personas = [
 
 function CreateCall({ callId }) {
   const [persona, setPersona] = useState('')
+  const formRef = useRef()
+  const transition = useTransition()
+
+  useEffect(() => {
+    if (transition.submission) {
+      const inputs = [...formRef.current.elements]
+
+      inputs.forEach((input) => (input.value = ''))
+    }
+  }, [transition.submission])
 
   useEffect(() => {
     if (callId) {
@@ -29,7 +39,7 @@ function CreateCall({ callId }) {
     <div className='p-4 rounded-md bg-secondary w-fit'>
       <h2 className='font-semibold text-type-secondary'>New Call</h2>
 
-      <Form className='mt-6' method='post'>
+      <Form ref={formRef} className='mt-6' method='post'>
         <input type='hidden' name='action' value='create' />
         <div className='flex flex-col mt-4'>
           <label
@@ -119,9 +129,9 @@ function CreateCall({ callId }) {
         <div className='flex flex-col mt-6'>
           <button
             className='py-3 font-semibold duration-500 rounded-full bg-primary text-accent-blue w-60 hover:bg-accent-blue hover:text-primary'
-            onClick={() => console.log('PPp')}
+            type='submit'
           >
-            Save Call
+            {transition.submission ? 'Saving' : 'Save Call'}
           </button>
         </div>
       </Form>
