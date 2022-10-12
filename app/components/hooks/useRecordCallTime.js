@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import useActiveCall from './useActiveCall'
 
 export default function useRecordCallTime(call) {
-  const { activeCall, setActiveCall } = useActiveCall()
+  const { activeCall } = useActiveCall()
   const [callTime, setCallTime] = useState({})
   const [startTimer, setStartTimer] = useState(false)
   const [isSynced, setIsSynced] = useState(false)
@@ -64,8 +64,6 @@ export default function useRecordCallTime(call) {
 
   return {
     isSynced,
-    activeCall,
-    setActiveCall,
     startTimer,
     setStartTimer,
     callTime,
