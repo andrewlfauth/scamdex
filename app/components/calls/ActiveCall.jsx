@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef, useCallback } from 'react'
-import { AiOutlinePlus } from 'react-icons/ai'
 import { useAtom } from 'jotai'
 
 import useRecordCallTime from '../hooks/useRecordCallTime'
 import { ActiveCallAtom } from '~/routes/call-center/calls'
+import ScammerNameInput from '~/components/calls/ScammerNameInput'
 
 function ActiveCall() {
   const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
@@ -81,7 +81,7 @@ function ActiveCall() {
         <button
           className={`${
             startTimer ? 'bg-accent-red' : 'bg-accent-blue'
-          } rounded text-type-white font-semibold tracking-tight whitespace-nowrap w-32 py-2`}
+          } rounded text-primary font-semibold hover:bg-opacity-90 tracking-tight whitespace-nowrap w-32 py-2`}
           onClick={() => setStartTimer(!startTimer)}
         >
           {startTimer ? 'Stop Timer' : 'Start Timer'}
@@ -115,24 +115,18 @@ function ActiveCall() {
         </span>
         <div className='flex flex-col items-center justify-center'>
           <h3 className='text-lg tracking-tight font-semibold text-type-secondary'>{`Fake ${activeCall.scamCompany}`}</h3>
-          <span className='block text-2xl tracking-tight text-type-primary font-semibold mt-1'>
+          <span className='block text-2xl tracking-tight text-type-primary font-semibold mt-1 mb-6'>
             {activeCall.scamNumber}
           </span>
-          <div className='mt-6'>
-            <div className='flex relative'>
-              <input
-                type='text'
-                name='scammerName'
-                className='block border-2 border-secondary mx-auto w-3/5 rounded px-4 py-1 text-lg bg-primary text-accent-blue text-center outline-accent-blue'
-              />
-              <button className='absolute translate-y-1 right-4 text-accent-blue text-2xl border-2 hover:bg-accent-blue hover:text-primary duration-200 border-secondary rounded-full'>
-                <AiOutlinePlus />
-              </button>
-            </div>
-            <span className='text-xs tracking-tight text-type-secondary block mt-1 text-center'>
-              Scammer's name
+          <span className='text-xs tracking-tight text-type-secondary block'>
+            Talking to
+          </span>
+          {activeCall?.scammerName.map((name, i) => (
+            <span key={i} className='font-semibold text-accent-red'>
+              {name}
             </span>
-          </div>
+          ))}
+          <ScammerNameInput />
         </div>
       </div>
 
@@ -142,7 +136,7 @@ function ActiveCall() {
         </span>
         <div className='flex flex-col items-center justify-center'>
           <img src={activeCall.persona.memoji} alt='' />
-          <span className='text-lg tracking-tight text-type-secondary font-semibold'>
+          <span className='text-lg tracking-tight text-accent-blue font-semibold -mt-2'>
             {activeCall.persona.name}
           </span>
           <span className='text-2xl mt-1 tracking-tight font-semibold'>
