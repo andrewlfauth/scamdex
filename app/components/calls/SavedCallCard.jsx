@@ -1,17 +1,22 @@
 import useActiveCall from '../hooks/useActiveCall'
 
 function SavedCallCard({ call }) {
-  const { setActiveCall } = useActiveCall()
+  const { activeCall, setActiveCall } = useActiveCall()
+  let isActive = activeCall && activeCall._id == call._id
 
   return (
     <div className='relative p-4 rounded-md bg-secondary'>
-      <div className='flex items-end mb-4'>
-        <h3 className='font-semibold text-type-secondary'>{call.name}</h3>
+      <div className='flex items-end justify-between mb-4'>
+        <h3 className='font-semibold text-type-secondary whitespace-nowrap'>
+          {call.name}
+        </h3>
         <button
-          className='w-full px-2 py-1 ml-4 font-bold duration-100 rounded bg-accent-purple text-secondary hover:bg-opacity-80'
-          onClick={() => setActiveCall(call)}
+          className={`${
+            isActive ? 'bg-accent-red' : 'bg-accent-blue'
+          } w-24 py-1 ml-4 font-bold duration-100 rounded text-secondary hover:bg-opacity-80`}
+          onClick={isActive ? () => setActiveCall() : () => setActiveCall(call)}
         >
-          Open Call
+          {isActive ? 'Close Call' : 'Open Call'}
         </button>
       </div>
       <span className='block mb-1 text-sm font-semibold text-type-secondary'>
