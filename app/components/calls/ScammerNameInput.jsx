@@ -1,12 +1,10 @@
 import { useRef, useEffect } from 'react'
 import { useFetcher } from '@remix-run/react'
 import { AiOutlinePlus } from 'react-icons/ai'
-import { useAtom } from 'jotai'
-
-import { ActiveCallAtom } from '~/routes/call-center/calls'
+import useActiveCall from '../hooks/useActiveCall'
 
 function ScammerNameInput() {
-  const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
+  const { activeCall, setActiveCall } = useActiveCall()
   const fetcher = useFetcher()
   const inputRef = useRef()
 
