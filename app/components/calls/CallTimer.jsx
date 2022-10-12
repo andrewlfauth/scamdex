@@ -1,7 +1,13 @@
 import useRecordCallTime from '../hooks/useRecordCallTime'
+import { useCallback } from 'react'
 
 function CallTimer() {
   const { isSynced, startTimer, setStartTimer, callTime } = useRecordCallTime()
+
+  const timerCallback = useCallback(
+    () => setStartTimer(!startTimer),
+    [startTimer, setStartTimer]
+  )
 
   return isSynced ? (
     <>
@@ -9,7 +15,7 @@ function CallTimer() {
         className={`${
           startTimer ? 'bg-accent-red' : 'bg-accent-blue'
         } rounded text-primary font-semibold hover:bg-opacity-90 tracking-tight whitespace-nowrap w-32 py-2`}
-        onClick={() => setStartTimer(!startTimer)}
+        onClick={timerCallback}
       >
         {startTimer ? 'Stop Timer' : 'Start Timer'}
       </button>
