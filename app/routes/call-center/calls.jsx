@@ -37,7 +37,7 @@ export const ActiveCallAtom = atom()
 
 function Index() {
   const loader = useLoaderData()
-  const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
+  const [activeCall] = useAtom(ActiveCallAtom)
 
   return (
     <div className='mt-10'>

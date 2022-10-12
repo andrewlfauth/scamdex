@@ -1,9 +1,7 @@
-import { useAtom } from 'jotai'
-
-import { ActiveCallAtom } from '~/routes/call-center/calls'
+import useActiveCall from '../hooks/useActiveCall'
 
 function SavedCallCard({ call }) {
-  const [, setActiveCall] = useAtom(ActiveCallAtom)
+  const { setActiveCall } = useActiveCall()
 
   return (
     <div className='relative p-4 rounded-md bg-secondary'>
