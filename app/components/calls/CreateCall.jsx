@@ -1,5 +1,6 @@
 import { Form, useTransition } from '@remix-run/react'
 import { useEffect, useState, useRef } from 'react'
+import { toast } from 'react-toastify'
 
 let personas = [
   {
@@ -16,23 +17,31 @@ let personas = [
   },
 ]
 
-function CreateCall({ callId }) {
+function CreateCall() {
   const [persona, setPersona] = useState({})
+  const [error, setError] = useState('')
   const formRef = useRef()
   const transition = useTransition()
+
+  useEffect(() => {
+    if (error) {
+      toast.error(error)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (persona.name) {
+      toast.dismiss()
+    }
+  }, [persona])
 
   useEffect(() => {
     if (transition.submission) {
       const inputs = [...formRef.current.elements]
       inputs.forEach((input) => (input.value = ''))
+      setPersona({})
     }
   }, [transition.submission])
-
-  useEffect(() => {
-    if (callId) {
-      localStorage.setItem(callId, '0')
-    }
-  }, [callId])
 
   return (
     <div className='p-4 rounded-md bg-secondary w-fit'>
@@ -49,6 +58,7 @@ function CreateCall({ callId }) {
           </label>
           <input
             type='text'
+            required
             name='callName'
             placeholder='ex. Scamazon'
             className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue placeholder:text-sm placeholder:text-type-secondary placeholder:text-left'
@@ -63,6 +73,7 @@ function CreateCall({ callId }) {
           </label>
           <input
             type='text'
+            required
             name='scamNumber'
             className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue'
           />
@@ -76,6 +87,7 @@ function CreateCall({ callId }) {
           </label>
           <input
             type='text'
+            required
             name='scamCompany'
             className='px-4 py-2 text-lg font-semibold text-center rounded-full bg-neutral-800 outline-accent-blue w-60 text-accent-blue'
           />
@@ -84,7 +96,7 @@ function CreateCall({ callId }) {
           <label className='mb-2 text-sm text-type-secondary'>
             Who will you be?
           </label>
-          <input type='hidden' name='persona' value={persona} />
+          <input type='hidden' name='persona' value={JSON.stringify(persona)} />
           <div className='flex flex-wrap gap-4'>
             {personas.map((p, i) => (
               <div
@@ -130,7 +142,10 @@ function CreateCall({ callId }) {
         <div className='flex flex-col mt-6'>
           <button
             className='py-3 font-semibold duration-500 rounded-full bg-primary text-accent-blue w-60 hover:bg-accent-blue hover:text-primary'
-            type='submit'
+            type={persona.name ? 'submit' : 'button'}
+            onClick={
+              persona.name ? null : () => setError('Please select a persona')
+            }
           >
             {transition.submission ? 'Saving' : 'Save Call'}
           </button>
