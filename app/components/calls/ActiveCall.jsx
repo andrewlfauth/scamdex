@@ -16,7 +16,7 @@ function ActiveCall() {
       </button>
 
       <div className='border-b-2 border-inherit pb-4 flex justify-between items-end gap-10'>
-        <h2 className='tracking-tight text-xl font-semibold text-type-primary whitespace-nowrap'>
+        <h2 className='tracking-tight w-1/3 text-xl font-semibold text-type-primary whitespace-nowrap'>
           {activeCall.name}
         </h2>
         <CallTimer />
