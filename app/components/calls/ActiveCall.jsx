@@ -46,7 +46,7 @@ function ActiveCall() {
                 ? '0' + callTime.minutes
                 : callTime.minues
             }:${
-              callTime.seconds.length === 1
+              callTime.seconds.toString().length === 1
                 ? '0' + callTime.seconds
                 : callTime.seconds
             }
