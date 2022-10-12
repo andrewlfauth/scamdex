@@ -1,4 +1,4 @@
-import { useRef, useEffect, memo } from 'react'
+import { useRef, useEffect } from 'react'
 import { useFetcher } from '@remix-run/react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import useActiveCall from '../hooks/useActiveCall'
@@ -50,5 +50,4 @@ function ScammerNameInput() {
   )
 }
 
-const MemoedScammerNameInput = memo(ScammerNameInput)
-export default MemoedScammerNameInput
+export default ScammerNameInput
