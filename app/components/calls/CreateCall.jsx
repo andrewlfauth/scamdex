@@ -3,13 +3,13 @@ import { useEffect, useState, useRef } from 'react'
 
 let personas = [
   {
-    id: 1,
+    _id: 1,
     name: 'Edna',
     memoji:
       'https://res.cloudinary.com/dpnkrz8c8/image/upload/w_50/v1664651994/classroom/Male_Memojis_1_o9vvoj.png',
   },
   {
-    id: 2,
+    _id: 2,
     name: 'John',
     memoji:
       'https://res.cloudinary.com/dpnkrz8c8/image/upload/w_50/v1664651959/classroom/Female_Memojis_1_rc28un.png',
@@ -17,14 +17,13 @@ let personas = [
 ]
 
 function CreateCall({ callId }) {
-  const [persona, setPersona] = useState('')
+  const [persona, setPersona] = useState({})
   const formRef = useRef()
   const transition = useTransition()
 
   useEffect(() => {
     if (transition.submission) {
       const inputs = [...formRef.current.elements]
-
       inputs.forEach((input) => (input.value = ''))
     }
   }, [transition.submission])
@@ -91,18 +90,20 @@ function CreateCall({ callId }) {
               <div
                 key={i}
                 className='cursor-pointer group'
-                onClick={() => setPersona(JSON.stringify(p))}
+                onClick={() => setPersona(p)}
               >
                 <img
                   src={p.memoji}
                   alt=''
                   className={`${
-                    persona === p.id ? 'scale-[1.1]' : 'group-hover:scale-[1.1]'
+                    persona._id === p._id
+                      ? 'scale-[1.1]'
+                      : 'group-hover:scale-[1.1]'
                   } w-14`}
                 />
                 <span
                   className={`${
-                    persona === p.id
+                    persona._id === p._id
                       ? 'text-accent-blue'
                       : 'text-type-secondary group-hover:text-accent-blue'
                   } block text-center font-semibold  -mt-2`}
