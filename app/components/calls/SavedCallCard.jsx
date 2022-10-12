@@ -3,7 +3,7 @@ import { useAtom } from 'jotai'
 import { ActiveCallAtom } from '~/routes/call-center/calls'
 
 function SavedCallCard({ call }) {
-  const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
+  const [, setActiveCall] = useAtom(ActiveCallAtom)
 
   return (
     <div className='relative p-4 rounded-md bg-secondary'>

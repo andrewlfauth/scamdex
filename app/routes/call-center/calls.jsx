@@ -1,11 +1,16 @@
 import { useAtom, atom } from 'jotai'
-import { useActionData, useLoaderData } from '@remix-run/react'
+import { useActionData, useLoaderData, useFetchers } from '@remix-run/react'
+import { json } from '@remix-run/node'
 
 import CreateCall from '~/components/calls/CreateCall'
 import SavedCalls from '~/components/calls/SavedCalls'
-import { createCall, getAllCalls } from '../../utils/calls.server'
+import {
+  createCall,
+  getAllCalls,
+  addScammerName,
+} from '../../utils/calls.server'
 import ActiveCall from '~/components/calls/ActiveCall'
-import ClientOnly from '../../components/ClientOnly'
+import { useEffect } from 'react'
 
 export async function action({ request }) {
   const formData = await request.formData()
@@ -14,6 +19,12 @@ export async function action({ request }) {
   if (action === 'create') {
     await createCall(request, values)
   }
+
+  if (action === 'addScammer') {
+    const updatedActiveCall = await addScammerName(values)
+    return { updatedActiveCall }
+  }
+
   return null
 }
 
@@ -26,7 +37,6 @@ export const ActiveCallAtom = atom()
 
 function Index() {
   const loader = useLoaderData()
-  const action = useActionData()
   const [activeCall, setActiveCall] = useAtom(ActiveCallAtom)
 
   return (
@@ -35,7 +45,6 @@ function Index() {
       <div className='flex w-full '>
         <SavedCalls calls={loader.allCalls} />
         {activeCall && <ActiveCall />}
-
         <CreateCall />
       </div>
     </div>

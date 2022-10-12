@@ -21,7 +21,7 @@ export async function createCall(request, values) {
 
   const userId = user._id.toString()
 
-  const call = await Calls.create({
+  await Calls.create({
     name: values.callName,
     scamNumber: values.scamNumber,
     scamCompany: values.scamCompany,
@@ -51,4 +51,19 @@ export async function getAllCalls(request) {
   const calls = await Calls.find({ userId })
 
   return calls
+}
+
+export async function addScammerName(values) {
+  const updatedActiveCall = await Calls.findOneAndUpdate(
+    { _id: values.callId },
+    {
+      $push: { scammerName: values.scammerName },
+    },
+    {
+      new: true,
+    }
+  )
+  console.log(updatedActiveCall)
+  console.log(values)
+  return updatedActiveCall
 }
