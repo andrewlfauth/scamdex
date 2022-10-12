@@ -4,7 +4,9 @@ function ClientOnly({ children }) {
   const [hasMounted, setHasMounted] = useState(false)
 
   useEffect(() => {
-    setHasMounted(true)
+    if (window.localStorage) {
+      setHasMounted(true)
+    }
   }, [])
 
   return !hasMounted ? null : <div>{children}</div>

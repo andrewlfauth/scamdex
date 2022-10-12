@@ -11,7 +11,7 @@ function SavedCallCard({ call }) {
         <h3 className='font-semibold text-type-secondary'>{call.name}</h3>
         <button
           className='w-full px-2 py-1 ml-4 font-bold duration-100 rounded bg-accent-purple text-secondary hover:bg-opacity-80'
-          onClick={() => setActiveCall(call._id)}
+          onClick={() => setActiveCall(call)}
         >
           Open Call
         </button>

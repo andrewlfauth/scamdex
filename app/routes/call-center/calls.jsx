@@ -4,14 +4,15 @@ import { useActionData, useLoaderData } from '@remix-run/react'
 import CreateCall from '~/components/calls/CreateCall'
 import SavedCalls from '~/components/calls/SavedCalls'
 import { createCall, getAllCalls } from '../../utils/calls.server'
+import ActiveCall from '~/components/calls/ActiveCall'
+import ClientOnly from '../../components/ClientOnly'
 
 export async function action({ request }) {
   const formData = await request.formData()
   const { action, ...values } = Object.fromEntries(formData)
 
   if (action === 'create') {
-    let callId = await createCall(request, values)
-    return { callId }
+    await createCall(request, values)
   }
   return null
 }
@@ -33,6 +34,8 @@ function Index() {
       <h1 className='text-lg font-semibold text-type-primary'>Calls</h1>
       <div className='flex w-full '>
         <SavedCalls calls={loader.allCalls} />
+        {activeCall && <ActiveCall />}
+
         <CreateCall />
       </div>
     </div>

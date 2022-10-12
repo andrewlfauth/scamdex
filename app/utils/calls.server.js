@@ -29,10 +29,6 @@ export async function createCall(request, values) {
     baiterNumber: values.baiterNumber,
     userId,
   })
-
-  const callId = call._id.toString()
-
-  return callId
 }
 
 export async function getAllCalls(request) {
