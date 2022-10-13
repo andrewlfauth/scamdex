@@ -1,50 +1,66 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 function Index() {
-  const [isRecording, setIsRecording] = useState(false)
-  const [permission, setPermission] = useState(false)
+  const [permissionDenied, setPermissionDenied] = useState(false)
   const [chunks, setChunks] = useState([])
   const [state, setState] = useState('')
-  const [blob, setBlob] = useState('')
+  const [recordingURL, setRecordingURL] = useState('')
+  let recorderRef = useRef
+
+  const startRecording = useCallback(async () => {
+    let stream = await navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .catch((x) => setPermissionDenied(true))
+
+    recorderRef.current = new MediaRecorder(stream)
+
+    recorderRef.current.ondataavailable = (e) => {
+      setChunks((old) => [...old, e.data])
+      console.log(e.data)
+    }
+
+    recorderRef.current.start(1000)
+  }, [recorderRef])
 
   useEffect(() => {
-    async function a() {
-      let stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      let recorder = new MediaRecorder(stream)
-      recorder.ondataavailable = (e) => {
-        setChunks((old) => [...old, e.data])
-        console.log(e.data)
-      }
-      recorder.start(1000)
-      setTimeout(() => {
-        recorder.stop()
-        setState('stop')
-      }, 3000)
+    if (state === 'recording') {
+      startRecording()
     }
-    a()
-  }, [])
 
-  useEffect(() => {
-    if (state === 'stop') {
-      let a = new Blob(chunks)
-      let audioUrl = URL.createObjectURL(a)
-      console.log(audioUrl)
-      setBlob(audioUrl)
-      // setBlob((old) => new Blob(chunks))
+    if (state === 'stopped') {
+      recorderRef.current.stop()
+      let blob = new Blob(chunks)
+      let audioUrl = URL.createObjectURL(blob)
+      setRecordingURL(audioUrl)
     }
-  }, [chunks, state])
+  }, [state, recorderRef, startRecording])
 
-  return (
+  return permissionDenied ? (
+    <div>Please Allow Permissions to Record</div>
+  ) : (
     <div>
       <div>Audio Recorder</div>
-      {JSON.stringify(chunks)}
-      <button onClick={() => setIsRecording(true)} disabled={isRecording}>
+      <button
+        onClick={() => setState('recording')}
+        disabled={state === 'recording'}
+      >
         RECORD
       </button>
-      <button onClick={() => setIsRecording(false)} disabled={!isRecording}>
+      <button
+        onClick={() => setTimeout(() => setState('stopped'), 500)}
+        disabled={state !== 'recording'}
+      >
         STOP
       </button>
-      {blob && <audio src={blob} controls='controls' />}
+      <button
+        onClick={() => {
+          setRecordingURL('')
+          setChunks([])
+        }}
+      >
+        Delete
+      </button>
+      {recordingURL && <audio src={recordingURL} controls='controls' />}
     </div>
   )
 }
