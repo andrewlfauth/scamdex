@@ -1,4 +1,3 @@
-import useRecordCallTime from '../hooks/useRecordCallTime'
 import ScammerNameInput from '~/components/calls/ScammerNameInput'
 import CallTimer from './CallTimer'
 import useActiveCall from '../hooks/useActiveCall'
