@@ -63,7 +63,6 @@ export async function addScammerName(values) {
       new: true,
     }
   )
-  console.log(updatedActiveCall)
-  console.log(values)
+
   return updatedActiveCall
 }
