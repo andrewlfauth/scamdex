@@ -1,11 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
+import RecordButton from '../audio_recorder/RecordButton'
+import StopRecordingButton from '../audio_recorder/StopRecordingButton'
+import ManageRecording from '../audio_recorder/ManageRecording'
+
 function Index() {
   const [permissionDenied, setPermissionDenied] = useState(false)
   const [chunks, setChunks] = useState([])
   const [state, setState] = useState('')
   const [recordingURL, setRecordingURL] = useState('')
-  let recorderRef = useRef
+  let recorderRef = useRef()
 
   const startRecording = useCallback(async () => {
     let stream = await navigator.mediaDevices
@@ -35,32 +39,35 @@ function Index() {
     }
   }, [state, recorderRef, startRecording])
 
-  return permissionDenied ? (
-    <div>Please Allow Permissions to Record</div>
-  ) : (
-    <div>
-      <div>Audio Recorder</div>
-      <button
-        onClick={() => setState('recording')}
-        disabled={state === 'recording'}
-      >
-        RECORD
-      </button>
-      <button
-        onClick={() => setTimeout(() => setState('stopped'), 500)}
-        disabled={state !== 'recording'}
-      >
-        STOP
-      </button>
-      <button
-        onClick={() => {
-          setRecordingURL('')
-          setChunks([])
-        }}
-      >
-        Delete
-      </button>
-      {recordingURL && <audio src={recordingURL} controls='controls' />}
+  return permissionDenied ? null : (
+    <div className='w-full mt-2'>
+      <span className='block mb-2 text-sm text-type-secondary'>
+        Record sound bite for Edna
+      </span>
+      <div className='flex items-center py-2 pl-4'>
+        {state === 'recording' && (
+          <StopRecordingButton
+            stopRecording={() => setTimeout(() => setState('stopped'), 500)}
+            disabled={state !== 'recording'}
+          />
+        )}
+        {!state && !recordingURL && (
+          <RecordButton
+            startRecording={() => setState('recording')}
+            disabled={state === 'recording}'}
+          />
+        )}
+        {recordingURL && (
+          <ManageRecording
+            src={recordingURL}
+            deleteRecording={() => {
+              setRecordingURL('')
+              setChunks([])
+              setState('')
+            }}
+          />
+        )}
+      </div>
     </div>
   )
 }

@@ -4,6 +4,7 @@ import AgeInput from './AgeInput'
 import NameInput from './NameInput'
 import MemojiInput from './MemojiInput'
 import BioInput from './BioInput'
+import AudioRecorder from '../../audio_recorder/index'
 
 function PersonaMaker() {
   return (
@@ -15,6 +16,7 @@ function PersonaMaker() {
           <AgeInput />
         </div>
         <MemojiInput />
+        <AudioRecorder />
         <BioInput />
         <button
           type='submit'
