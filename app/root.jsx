@@ -3,7 +3,6 @@ import toastStyles from 'react-toastify/dist/ReactToastify.css'
 
 import { connect } from './utils/db.server'
 import tailwindURL from './styles/tailwind.css'
-import Navbar from './components/Navbar'
 const {
   Links,
   LiveReload,
@@ -12,6 +11,7 @@ const {
   Scripts,
   ScrollRestoration,
 } = require('@remix-run/react')
+// const cloudinary = require('cloudinary')
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -27,7 +27,15 @@ export const links = () => {
 }
 
 export async function loader() {
+  // await cloudinary.v2.uploader
+  //   .upload('./app/test.wav', {
+  //     public_id: 'bait-tracker/persona/test',
+  //     resource_type: 'auto',
+  //   })
+  //   .then((r) => console.log(r))
+  //   .catch((e) => console.log(e))
   connect()
+
   return null
 }
 
@@ -49,7 +57,7 @@ export default function App() {
         <Links />
       </head>
       <body className='font-lato bg-primary'>
-        <div className='absolute top-2 left-2 text-white'>
+        <div className='absolute text-white top-2 left-2'>
           <span className='hidden xl:block'>Extra Large</span>
           <span className='hidden lg:block xl:hidden'>Large</span>
           <span className='hidden md:block lg:hidden'>Medium</span>

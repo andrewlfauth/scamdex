@@ -49,7 +49,7 @@ function AgeInput() {
 
   return (
     <div className='relative flex flex-col'>
-      <label htmlFor='character-age' className='text-sm text-type-secondary'>
+      <label htmlFor='age' className='text-sm text-type-secondary'>
         Age
       </label>
       <input

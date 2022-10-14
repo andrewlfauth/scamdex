@@ -3,13 +3,17 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import RecordButton from '../audio_recorder/RecordButton'
 import StopRecordingButton from '../audio_recorder/StopRecordingButton'
 import ManageRecording from '../audio_recorder/ManageRecording'
+import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 
 function Index() {
   const [permissionDenied, setPermissionDenied] = useState(false)
   const [chunks, setChunks] = useState([])
   const [state, setState] = useState('')
   const [recordingURL, setRecordingURL] = useState('')
-  let recorderRef = useRef()
+
+  const recorderRef = useRef()
+  const blobRef = useRef()
+  const base64Ref = useRef()
 
   const startRecording = useCallback(async () => {
     let stream = await navigator.mediaDevices
@@ -20,7 +24,6 @@ function Index() {
 
     recorderRef.current.ondataavailable = (e) => {
       setChunks((old) => [...old, e.data])
-      console.log(e.data)
     }
 
     recorderRef.current.start(1000)
@@ -34,6 +37,15 @@ function Index() {
     if (state === 'stopped') {
       recorderRef.current.stop()
       let blob = new Blob(chunks)
+      blobRef.current = blob
+
+      const reader = new window.FileReader()
+      reader.readAsDataURL(blobRef.current)
+      reader.onloadend = () => {
+        base64Ref.current = reader.result
+        console.log(base64Ref.current)
+      }
+
       let audioUrl = URL.createObjectURL(blob)
       setRecordingURL(audioUrl)
     }
@@ -41,6 +53,7 @@ function Index() {
 
   return permissionDenied ? null : (
     <div className='w-full mt-2'>
+      <input type='hidden' name='audio' value={base64Ref.current} />
       <span className='block mb-2 text-sm text-type-secondary'>
         Record sound bite for Edna
       </span>
