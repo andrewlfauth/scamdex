@@ -1,5 +1,6 @@
-import { MdOutlineDescription, MdOutlineTimelapse } from 'react-icons/md'
+import { MdOutlineTimelapse } from 'react-icons/md'
 import { BiPhoneCall } from 'react-icons/bi'
+import { AiOutlineSound } from 'react-icons/ai'
 
 function PersonaCard({ persona, active }) {
   const formatBio = (bio) => {
@@ -8,9 +9,11 @@ function PersonaCard({ persona, active }) {
     return short
   }
 
-  formatBio(
-    'Thos is a really long bio that someone may right if anybody ever uses this stupid app that i am making. god i need a job is this all for naught IDK. I dont thinks so I wil make it'
-  )
+  const playRecording = () => {
+    const audio = document.createElement('audio')
+    audio.src = persona.audio
+    audio.play()
+  }
 
   return (
     <div
@@ -28,7 +31,10 @@ function PersonaCard({ persona, active }) {
       </p>
 
       <div className='z-10 flex justify-around w-full px-2 py-1 mt-4 text-xl rounded-md text-type-secondary'>
-        <MdOutlineDescription className='cursor-help hover:text-accent-blue' />
+        <AiOutlineSound
+          onClick={playRecording}
+          className='cursor-pointer hover:text-accent-blue'
+        />
         <BiPhoneCall className='cursor-help hover:text-accent-purple' />
         <MdOutlineTimelapse className='cursor-help hover:text-accent-red' />
       </div>
