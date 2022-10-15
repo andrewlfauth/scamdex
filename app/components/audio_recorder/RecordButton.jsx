@@ -3,7 +3,7 @@ function RecordButton({ startRecording, disabled }) {
     <div className='relative flex group'>
       <button
         type='button'
-        className='w-[22px] h-[22px] bg-accent-purple rounded-full'
+        className='w-[22px] h-[22px]  hover:scale-105 bg-accent-purple rounded-full'
         onClick={startRecording}
         disabled={disabled}
       ></button>
