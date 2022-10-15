@@ -17,17 +17,18 @@ export async function action({ request }) {
 
 export async function loader({ request }) {
   let usersPersonas = await getUsersPersonas(request)
-  console.log(usersPersonas)
   return usersPersonas
 }
 
 function Index() {
-  let allPersonas = useLoaderData()
+  let usersPersonas = useLoaderData()
 
   return (
     <div>
       <h1 className='text-lg font-semibold text-type-primary'>Personas</h1>
-      <div className='flex space-x-20'>{/* <PersonaSlider /> */}</div>
+      <div className='flex space-x-20'>
+        <PersonaSlider personas={usersPersonas} />
+      </div>
       <PersonaMaker />
       {/* <PersonaTimeStats /> */}
     </div>

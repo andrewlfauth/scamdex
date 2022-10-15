@@ -3,40 +3,16 @@ import { AiOutlineRight, AiOutlineLeft } from 'react-icons/ai'
 
 import PersonaCard from './PersonaCard'
 
-function Index() {
+function Index({ personas }) {
   const [currentIdx, setCurrentIdx] = useState(0)
 
   const handleNext = () => {
-    setCurrentIdx((currentIdx + 1) % p.length)
+    setCurrentIdx((currentIdx + 1) % personas.length)
   }
 
   const handlePrev = () => {
-    setCurrentIdx((currentIdx + p.length - 1) % p.length)
+    setCurrentIdx((currentIdx + personas.length - 1) % personas.length)
   }
-
-  let p = [
-    {
-      name: 'Edna',
-      age: '83',
-      memoji:
-        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651959/classroom/Female_Memojis_1_rc28un.png',
-      bio: "Endna's hobbies include mayonaise and purchasing bathtubs.",
-    },
-    {
-      name: 'Bob',
-      age: '3',
-      memoji:
-        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651994/classroom/Male_Memojis_1_o9vvoj.png',
-      bio: 'Fun stuff and stuff.',
-    },
-    {
-      name: 'Jane',
-      age: '33',
-      memoji:
-        'https://res.cloudinary.com/dpnkrz8c8/image/upload/v1664651962/classroom/Female_Memojis_dkwxqr.png',
-      bio: 'Everyting i sokay i think.',
-    },
-  ]
 
   return (
     <div className='flex flex-col items-center w-fit pt-8 pb-20'>
@@ -46,7 +22,7 @@ function Index() {
         </button>
 
         <div className='relative h-[200px] w-[150px]'>
-          {p.map((p, i) => (
+          {personas.map((p, i) => (
             <PersonaCard key={i} persona={p} active={i == currentIdx} />
           ))}
         </div>
