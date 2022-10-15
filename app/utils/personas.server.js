@@ -6,18 +6,6 @@ import Personas from '../models/Personas'
 import Users from '../models/Users'
 
 export async function createPersona(request, values) {
-  // const session = await getSession(request.headers.get('Cookie'))
-  // if (!session.has('userId')) {
-  //   return redirect('/auth')
-  // }
-  // const user = await Users.findOne({
-  //   id: session.userId,
-  // })
-  // if (!user) {
-  //   return redirect('/auth')
-  // }
-  // const userId = user._id.toString()
-
   await cloudinary.v2.uploader
     .upload(values.audio, {
       public_id: 'bait-tracker/persona/test',
