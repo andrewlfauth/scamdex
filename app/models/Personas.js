@@ -7,6 +7,7 @@ const PersonaScheme = mongoose.Schema(
     memoji: String,
     audio: String,
     bio: String,
+    userId: String,
   },
   {
     timestamps: true,

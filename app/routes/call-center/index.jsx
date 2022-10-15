@@ -1,12 +1,5 @@
-import AudioRecorder from '~/components/audio_recorder/index'
-
 function Index() {
-  return (
-    <div>
-      DASHBOARD
-      <AudioRecorder />
-    </div>
-  )
+  return <div>DASHBOARD</div>
 }
 
 export default Index

@@ -2,7 +2,6 @@ import { Link } from '@remix-run/react'
 import { redirect } from '@remix-run/node'
 
 import { getSession } from '../sessions'
-import PersonaMaker from '../components/personas/PersonaMaker/index'
 
 export async function loader({ request }) {
   const session = await getSession(request.headers.get('Cookie'))
@@ -28,7 +27,6 @@ function index() {
           Get started
         </Link>
       </div>
-      <PersonaMaker />
     </div>
   )
 }
