@@ -3,30 +3,15 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import RecordButton from '../audio_recorder/RecordButton'
 import StopRecordingButton from '../audio_recorder/StopRecordingButton'
 import ManageRecording from '../audio_recorder/ManageRecording'
-import { BsFillBookmarkHeartFill } from 'react-icons/bs'
 
 function Index() {
   const [permissionDenied, setPermissionDenied] = useState(false)
   const [chunks, setChunks] = useState([])
   const [state, setState] = useState('')
   const [recordingURL, setRecordingURL] = useState('')
-  const [a, setA] = useState('')
+  const [base64, setBase64] = useState('')
 
   const recorderRef = useRef()
-  const base64Ref = useRef()
-
-  const test = async () => {
-    var fd = new FormData()
-    fd.append()
-    await fetch('https://api.cloudinary.com/v1_1/dpnkrz8c8/upload', {
-      method: 'post',
-    })
-  }
-  // useEffect(() => {
-  //   if (base64Ref.current) {
-  //     console.log(base64Ref.current)
-  //   }
-  // }, [base64Ref.current])
 
   const startRecording = useCallback(async () => {
     let stream = await navigator.mediaDevices
@@ -54,8 +39,7 @@ function Index() {
       const reader = new window.FileReader()
       reader.readAsDataURL(blob)
       reader.onloadend = () => {
-        base64Ref.current = reader.result
-        setA('OPPP')
+        setBase64(reader.result)
       }
 
       let audioUrl = URL.createObjectURL(blob)
@@ -65,9 +49,9 @@ function Index() {
 
   return permissionDenied ? null : (
     <div className='w-full mt-2'>
-      <input type='hidden' name='audio' value={base64Ref.current} />
+      <input type='hidden' name='audio' value={base64} />
       <span className='block mb-2 text-sm text-type-secondary'>
-        Record sound bite for Edna
+        Record sound bite
       </span>
       <div className='flex items-center py-2 pl-4'>
         {state === 'recording' && (
@@ -82,6 +66,7 @@ function Index() {
             disabled={state === 'recording}'}
           />
         )}
+        {state === 'done' && <div>DONE</div>}
         {recordingURL && (
           <ManageRecording
             src={recordingURL}
