@@ -41,7 +41,6 @@ function Index() {
       if (!chunks.length) {
         toast.error('Recording was not long enough')
         setState('')
-        setRecordingURL('')
         return
       }
 
