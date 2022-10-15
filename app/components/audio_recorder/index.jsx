@@ -64,7 +64,7 @@ function Index() {
       <span className='block mb-2 text-sm text-type-secondary'>
         Record sound bite
       </span>
-      <div className='flex items-center py-2 pl-4'>
+      <div className='flex items-center h-10 pl-4'>
         {state === 'recording' && (
           <StopRecordingButton
             stopRecording={() => setTimeout(() => setState('stopped'), 500)}

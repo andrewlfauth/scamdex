@@ -719,6 +719,10 @@ video {
   margin-left: 6px;
 }
 
+.ml-6 {
+  margin-left: 1.5rem;
+}
+
 .block {
   display: block;
 }
@@ -771,6 +775,14 @@ video {
 
 .h-\[80px\] {
   height: 80px;
+}
+
+.h-20 {
+  height: 5rem;
+}
+
+.h-10 {
+  height: 2.5rem;
 }
 
 .w-full {
