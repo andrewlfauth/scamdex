@@ -1,10 +1,18 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { AiOutlineCaretDown, AiOutlineCaretUp } from 'react-icons/ai'
+import { useTransition } from '@remix-run/react'
 
 function AgeInput() {
+  const transition = useTransition()
   const [age, setAge] = useState('')
   const inputRef = useRef()
   let intervalId = useRef()
+
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      setAge('')
+    }
+  }, [transition])
 
   const decrementAge = () => {
     if (!age || age == 1 || inputRef.current.value < 1) return

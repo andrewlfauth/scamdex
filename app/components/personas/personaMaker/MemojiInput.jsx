@@ -1,16 +1,28 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useTransition } from '@remix-run/react'
 
 import ALL_MEMOJIS from '~/data/memojiSrcs'
 
 function MemojiInput() {
+  const transition = useTransition()
   const [imgIdx, setImgIdx] = useState()
+
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      setImgIdx()
+    }
+  }, [transition])
 
   return (
     <>
       <span className='block text-sm text-type-secondary mt-4'>
         Choose memoji
       </span>
-      <input type='hidden' name='memoji' value={ALL_MEMOJIS[imgIdx]} />
+      {imgIdx >= 0 ? (
+        <input type='hidden' name='memoji' value={ALL_MEMOJIS[imgIdx]} />
+      ) : (
+        ''
+      )}
       <div className='grid mt-2 grid-cols-4 gap-2'>
         {ALL_MEMOJIS.map((s, i) => (
           <img

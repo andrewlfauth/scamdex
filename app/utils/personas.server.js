@@ -24,7 +24,7 @@ export async function createPersona(request, values) {
 
   await cloudinary.v2.uploader
     .upload(values.audio, {
-      public_id: 'bait-tracker/persona',
+      folder: 'bait-tracker/persona',
       resource_type: 'auto',
     })
     .then((res) => (values.audio = res.url))

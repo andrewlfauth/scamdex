@@ -11,7 +11,6 @@ export async function action({ request }) {
     await createPersona(request, values)
     return null
   }
-
   return null
 }
 
@@ -20,9 +19,7 @@ function Index() {
     <div>
       <h1 className='text-lg font-semibold text-type-primary'>Personas</h1>
 
-      <div className='flex space-x-20'>
-        <PersonaSlider />
-      </div>
+      <div className='flex space-x-20'>{/* <PersonaSlider /> */}</div>
       <PersonaMaker />
       {/* <PersonaTimeStats /> */}
     </div>

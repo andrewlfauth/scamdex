@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useTransition } from '@remix-run/react'
 
 import RecordButton from '../audio_recorder/RecordButton'
 import StopRecordingButton from '../audio_recorder/StopRecordingButton'
 import ManageRecording from '../audio_recorder/ManageRecording'
 
 function Index() {
+  const transition = useTransition()
   const [permissionDenied, setPermissionDenied] = useState(false)
   const [chunks, setChunks] = useState([])
   const [state, setState] = useState('')
@@ -46,6 +48,12 @@ function Index() {
       setRecordingURL(audioUrl)
     }
   }, [state, recorderRef, startRecording])
+
+  // useEffect(() => {
+  //   if (transition.state === 'submitting') {
+  //     setBase64('')
+  //   }
+  // }, [transition])
 
   return permissionDenied ? null : (
     <div className='w-full mt-2'>

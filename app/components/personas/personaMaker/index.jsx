@@ -1,4 +1,5 @@
-import { Form } from '@remix-run/react'
+import { Form, useTransition } from '@remix-run/react'
+import { useEffect, useRef } from 'react'
 
 import AgeInput from './AgeInput'
 import NameInput from './NameInput'
@@ -7,10 +8,25 @@ import BioInput from './BioInput'
 import AudioRecorder from '../../audio_recorder/index'
 
 function PersonaMaker() {
+  const transition = useTransition()
+  const formRef = useRef()
+
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      const inputs = [...formRef.current.elements]
+      inputs.forEach((i) => {
+        if (i.name !== 'action') {
+          i.value = ''
+        }
+      })
+    }
+  }, [transition])
+
   return (
     <div className='bg-secondary w-[300px] rounded-md p-4'>
       <h2 className='mb-4 text-type-primary'>Persona Factory</h2>
       <Form
+        ref={formRef}
         method='post'
         action='/call-center/personas'
         className='flex flex-col'
