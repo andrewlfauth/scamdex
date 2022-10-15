@@ -28,9 +28,9 @@ export async function action({ request }) {
 }
 
 export async function loader({ request }) {
-  const allCalls = await getUsersCalls(request)
+  const userCalls = await getUsersCalls(request)
   const userPersonas = await getUsersPersonas(request)
-  return { allCalls, userPersonas }
+  return { userCalls, userPersonas }
 }
 
 export const ActiveCallAtom = atom()
@@ -39,14 +39,13 @@ function Index() {
   const loader = useLoaderData()
   const [activeCall] = useAtom(ActiveCallAtom)
 
-  console.log(loader.userPersonas)
   return (
     <div className='mt-10'>
       <h1 className='text-lg font-semibold text-type-primary'>Calls</h1>
       <div className='flex w-full '>
-        <SavedCalls calls={loader.allCalls} />
+        <SavedCalls calls={loader.userCalls} />
         {activeCall && <ActiveCall />}
-        <CreateCall />
+        <CreateCall personas={loader.userPersonas} />
       </div>
     </div>
   )

@@ -2,22 +2,7 @@ import { Form, useTransition } from '@remix-run/react'
 import { useEffect, useState, useRef } from 'react'
 import { toast } from 'react-toastify'
 
-let personas = [
-  {
-    _id: 1,
-    name: 'Edna',
-    memoji:
-      'https://res.cloudinary.com/dpnkrz8c8/image/upload/w_50/v1664651994/classroom/Male_Memojis_1_o9vvoj.png',
-  },
-  {
-    _id: 2,
-    name: 'John',
-    memoji:
-      'https://res.cloudinary.com/dpnkrz8c8/image/upload/w_50/v1664651959/classroom/Female_Memojis_1_rc28un.png',
-  },
-]
-
-function CreateCall() {
+function CreateCall({ personas }) {
   const [persona, setPersona] = useState({})
   const [error, setError] = useState('')
   const formRef = useRef()
