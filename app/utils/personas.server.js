@@ -38,6 +38,8 @@ export async function createPersona(request, values) {
     bio: values.bio,
     userId,
   })
+
+  return values.name
 }
 
 export async function getUsersPersonas(request) {
