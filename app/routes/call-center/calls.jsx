@@ -1,16 +1,15 @@
 import { useAtom, atom } from 'jotai'
-import { useActionData, useLoaderData, useFetchers } from '@remix-run/react'
-import { json } from '@remix-run/node'
+import { useLoaderData } from '@remix-run/react'
 
 import CreateCall from '~/components/calls/CreateCall'
 import SavedCalls from '~/components/calls/SavedCalls'
 import {
   createCall,
-  getAllCalls,
+  getUsersCalls,
   addScammerName,
 } from '../../utils/calls.server'
+import { getUsersPersonas } from '../../utils/personas.server'
 import ActiveCall from '~/components/calls/ActiveCall'
-import { useEffect } from 'react'
 
 export async function action({ request }) {
   const formData = await request.formData()
@@ -29,8 +28,9 @@ export async function action({ request }) {
 }
 
 export async function loader({ request }) {
-  const allCalls = await getAllCalls(request)
-  return { allCalls }
+  const allCalls = await getUsersCalls(request)
+  const userPersonas = await getUsersPersonas(request)
+  return { allCalls, userPersonas }
 }
 
 export const ActiveCallAtom = atom()
@@ -39,6 +39,7 @@ function Index() {
   const loader = useLoaderData()
   const [activeCall] = useAtom(ActiveCallAtom)
 
+  console.log(loader.userPersonas)
   return (
     <div className='mt-10'>
       <h1 className='text-lg font-semibold text-type-primary'>Calls</h1>

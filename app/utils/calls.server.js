@@ -31,7 +31,7 @@ export async function createCall(request, values) {
   })
 }
 
-export async function getAllCalls(request) {
+export async function getUsersCalls(request) {
   const session = await getSession(request.headers.get('Cookie'))
 
   if (!session.has('userId')) {
