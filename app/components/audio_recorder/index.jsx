@@ -4,6 +4,7 @@ import { useTransition } from '@remix-run/react'
 import RecordButton from '../audio_recorder/RecordButton'
 import StopRecordingButton from '../audio_recorder/StopRecordingButton'
 import ManageRecording from '../audio_recorder/ManageRecording'
+import { toast } from 'react-toastify'
 
 function Index() {
   const transition = useTransition()
@@ -36,6 +37,14 @@ function Index() {
 
     if (state === 'stopped') {
       recorderRef.current.stop()
+
+      if (!chunks.length) {
+        toast.error('Recording was not long enough')
+        setState('')
+        setRecordingURL('')
+        return
+      }
+
       let blob = new Blob(chunks)
 
       const reader = new window.FileReader()
