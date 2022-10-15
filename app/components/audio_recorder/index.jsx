@@ -49,11 +49,14 @@ function Index() {
     }
   }, [state, recorderRef, startRecording])
 
-  // useEffect(() => {
-  //   if (transition.state === 'submitting') {
-  //     setBase64('')
-  //   }
-  // }, [transition])
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      setBase64('')
+      setRecordingURL('')
+      setChunks([])
+      setState('')
+    }
+  }, [transition])
 
   return permissionDenied ? null : (
     <div className='w-full mt-2'>

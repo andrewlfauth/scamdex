@@ -28,8 +28,8 @@ function Index() {
       <h1 className='text-lg font-semibold text-type-primary'>Personas</h1>
       <div className='flex space-x-20'>
         <PersonaSlider personas={usersPersonas} />
+        <PersonaMaker />
       </div>
-      <PersonaMaker />
       {/* <PersonaTimeStats /> */}
     </div>
   )
