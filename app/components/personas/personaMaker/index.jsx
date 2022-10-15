@@ -24,6 +24,8 @@ function PersonaMaker() {
         <BioInput />
         <button
           type='submit'
+          name='action'
+          value='create'
           className='self-end px-6 py-2 mt-6 text-sm font-semibold duration-200 rounded-md bg-accent-purple text-secondary hover:ring-2 ring-offset-2 ring-offset-secondary ring-accent-purple w-fit'
         >
           Create
