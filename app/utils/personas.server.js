@@ -39,3 +39,25 @@ export async function createPersona(request, values) {
     userId,
   })
 }
+
+export async function getUsersPersonas(request) {
+  const session = await getSession(request.headers.get('Cookie'))
+
+  if (!session.has('userId')) {
+    return redirect('/auth')
+  }
+
+  const user = await Users.findOne({
+    id: session.userId,
+  })
+
+  if (!user) {
+    return redirect('/auth')
+  }
+
+  const userId = user._id.toString()
+
+  const usersPersonas = await Personas.find({ userId })
+
+  return usersPersonas
+}
