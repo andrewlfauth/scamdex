@@ -10,10 +10,23 @@ function Index() {
   const [chunks, setChunks] = useState([])
   const [state, setState] = useState('')
   const [recordingURL, setRecordingURL] = useState('')
+  const [a, setA] = useState('')
 
   const recorderRef = useRef()
-  const blobRef = useRef()
   const base64Ref = useRef()
+
+  const test = async () => {
+    var fd = new FormData()
+    fd.append()
+    await fetch('https://api.cloudinary.com/v1_1/dpnkrz8c8/upload', {
+      method: 'post',
+    })
+  }
+  // useEffect(() => {
+  //   if (base64Ref.current) {
+  //     console.log(base64Ref.current)
+  //   }
+  // }, [base64Ref.current])
 
   const startRecording = useCallback(async () => {
     let stream = await navigator.mediaDevices
@@ -37,13 +50,12 @@ function Index() {
     if (state === 'stopped') {
       recorderRef.current.stop()
       let blob = new Blob(chunks)
-      blobRef.current = blob
 
       const reader = new window.FileReader()
-      reader.readAsDataURL(blobRef.current)
+      reader.readAsDataURL(blob)
       reader.onloadend = () => {
         base64Ref.current = reader.result
-        console.log(base64Ref.current)
+        setA('OPPP')
       }
 
       let audioUrl = URL.createObjectURL(blob)
