@@ -11,7 +11,6 @@ const {
   Scripts,
   ScrollRestoration,
 } = require('@remix-run/react')
-// const cloudinary = require('cloudinary')
 
 export const meta = () => ({
   charset: 'utf-8',
@@ -27,15 +26,7 @@ export const links = () => {
 }
 
 export async function loader() {
-  // await cloudinary.v2.uploader
-  //   .upload('./app/test.wav', {
-  //     public_id: 'bait-tracker/persona/test',
-  //     resource_type: 'auto',
-  //   })
-  //   .then((r) => console.log(r))
-  //   .catch((e) => console.log(e))
   connect()
-
   return null
 }
 
