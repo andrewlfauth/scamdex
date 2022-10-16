@@ -1,15 +1,17 @@
 import { useAtom, atom } from 'jotai'
 import { useLoaderData } from '@remix-run/react'
+import { useEffect } from 'react'
 
 import CreateCall from '~/components/calls/CreateCall'
 import SavedCalls from '~/components/calls/SavedCalls'
+import ActiveCall from '~/components/calls/ActiveCall'
+import sortCallsByLongestDuration from '~/helpers/sortCallsByLongestDuration'
 import {
   createCall,
   getUsersCalls,
   addScammerName,
 } from '../../utils/calls.server'
 import { getUsersPersonas } from '../../utils/personas.server'
-import ActiveCall from '~/components/calls/ActiveCall'
 
 export async function action({ request }) {
   const formData = await request.formData()
@@ -38,6 +40,25 @@ export const ActiveCallAtom = atom()
 function Index() {
   const loader = useLoaderData()
   const [activeCall] = useAtom(ActiveCallAtom)
+
+  useEffect(() => {
+    // let callTimes = loader.userCalls.map((i) => {
+    //   let callTime = JSON.parse(window.localStorage.getItem(i._id))
+
+    //   let totalTimeConcat = parseInt(
+    //     '' + callTime.hours + callTime.minutes + callTime.seconds
+    //   )
+
+    //   return {
+    //     callId: i._id,
+    //     callTime: totalTimeConcat,
+    //   }
+    // })
+
+    // let sortedByCallDuration = callTimes.sort((a, b) => b.callTime - a.callTime)
+    let a = sortCallsByLongestDuration(loader.userCalls)
+    console.log(a)
+  }, [loader])
 
   return (
     <div className='mt-10'>
