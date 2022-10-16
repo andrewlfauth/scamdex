@@ -2,12 +2,12 @@ export default function sortCallsByLongestDuration(calls) {
   let callTimes = calls.map((i) => {
     let callTime = JSON.parse(window.localStorage.getItem(i._id))
 
-    let totalTimeConcat = parseInt(
-      '' + callTime.hours + callTime.minutes + callTime.seconds
-    )
+    let hoursInSeconds = callTime.hours * 60 * 60
+    let minutesInSeconds = callTime.minutes * 60
+
     return {
       callId: i._id,
-      callTime: totalTimeConcat,
+      callTime: hoursInSeconds + minutesInSeconds + callTime.seconds,
     }
   })
 
