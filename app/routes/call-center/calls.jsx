@@ -42,22 +42,7 @@ function Index() {
   const [activeCall] = useAtom(ActiveCallAtom)
 
   useEffect(() => {
-    // let callTimes = loader.userCalls.map((i) => {
-    //   let callTime = JSON.parse(window.localStorage.getItem(i._id))
-
-    //   let totalTimeConcat = parseInt(
-    //     '' + callTime.hours + callTime.minutes + callTime.seconds
-    //   )
-
-    //   return {
-    //     callId: i._id,
-    //     callTime: totalTimeConcat,
-    //   }
-    // })
-
-    // let sortedByCallDuration = callTimes.sort((a, b) => b.callTime - a.callTime)
     let a = sortCallsByLongestDuration(loader.userCalls)
-    console.log(a)
   }, [loader])
 
   return (
